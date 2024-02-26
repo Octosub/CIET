@@ -52,12 +52,12 @@ end
 
 10.times do
   ingredient = Ingredient.new(name: Faker::Food.ingredient, vegetarian: true)
-  puts "Creating #{ingredient}"
+  puts "Creating #{ingredient.name}, vegetarian: #{ingredient.vegetarian}"
   ingredient.save
 end
 
 10.times do
   ingredient = Ingredient.new(name: Faker::Food.ingredient, vegetarian: false)
-  puts "Creating #{ingredient}"
+  puts "Creating #{ingredient.name}, vegetarian: #{ingredient.vegetarian}"
   ingredient.save
 end
