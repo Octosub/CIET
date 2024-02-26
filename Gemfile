@@ -5,6 +5,7 @@ ruby "3.1.2"
 # custom
 gem "dotenv-rails"
 gem "cloudinary"
+gem 'faker'
 
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
