@@ -15,6 +15,7 @@ require "open-uri"
 
 Food.destroy_all
 User.destroy_all
+Ingredient.destroy_all
 
 users = ['imnadleeh', 'flxlng', 'leamuno', 'Octosub']
 
@@ -50,9 +51,13 @@ users.each do |user_name|
 end
 
 10.times do
-  Ingredient.create(:name Faker::Food.ingredient, vegetarian: true)
+  ingredient = Ingredient.new(name: Faker::Food.ingredient, vegetarian: true)
+  puts "Creating #{ingredient}"
+  ingredient.save
 end
 
 10.times do
-  Ingredient.create(:name Faker::Food.ingredient, vegetarian: false)
+  ingredient = Ingredient.new(name: Faker::Food.ingredient, vegetarian: false)
+  puts "Creating #{ingredient}"
+  ingredient.save
 end
