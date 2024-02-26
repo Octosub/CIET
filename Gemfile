@@ -3,7 +3,6 @@ source "https://rubygems.org"
 ruby "3.1.2"
 
 # custom
-gem "dotenv-rails"
 gem "cloudinary"
 gem 'faker'
 

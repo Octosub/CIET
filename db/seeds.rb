@@ -48,3 +48,11 @@ users.each do |user_name|
     food.save
   end
 end
+
+10.times do
+  Ingredient.create(:name Faker::Food.ingredient, vegetarian: true)
+end
+
+10.times do
+  Ingredient.create(:name Faker::Food.ingredient, vegetarian: false)
+end
