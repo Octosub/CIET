@@ -6,7 +6,7 @@ ruby "3.1.2"
 gem "cloudinary"
 gem 'faker'
 
-gem "google-cloud-translate"
+gem "google-cloud-translate-v2"
 
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"

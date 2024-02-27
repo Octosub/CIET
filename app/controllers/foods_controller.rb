@@ -1,5 +1,4 @@
 class FoodsController < ApplicationController
-
   def show
     @food = Food.find(params[:id])
   end
@@ -11,7 +10,9 @@ class FoodsController < ApplicationController
   def create
     @food = Food.new(food_params)
     @food.user = current_user
+
     if @food.save
+      puts "save successfull!"
       redirect_to food_path(@food)
     else
       render :new, status: :unprocessable_entity
