@@ -1,4 +1,5 @@
 class FoodsController < ApplicationController
+
   require 'json'
   require "open-uri"
 
@@ -16,7 +17,9 @@ class FoodsController < ApplicationController
     @food = Food.new(food_params)
     @food.ingredient_list = @food.ingredient_list.gsub(" ", "")
     @food.user = current_user
+
     if @food.save
+      puts "save successfull!"
       redirect_to food_path(@food)
     else
       flash[:error] = @food.errors.full_messages.join(", ")
