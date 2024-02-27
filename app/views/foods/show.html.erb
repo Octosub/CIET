@@ -1,0 +1,11 @@
+<h1>Your Scanned Product</h1>
+<%= link_to "Scan another product", root_path %>
+<% @food.photos.each do |photo| %>
+  <%= cl_image_tag photo.key, height: 300, width: 400, crop: :fill %>
+<% end %>
+<div class="result">Your food is </div>
+<h2>Ingredients</h2>
+<%# <% @food.ingredients.each do |ingredient| %> %>
+  <%# <h3><%= ingredient %></h3>
+ %>
+<%# <% end %> %>
