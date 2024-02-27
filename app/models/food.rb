@@ -5,4 +5,5 @@ class Food < ApplicationRecord
 
   # validates :ingredient_list, presence: true
   validates :photos, presence: true
+
 end
