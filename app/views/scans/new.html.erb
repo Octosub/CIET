@@ -1,0 +1,6 @@
+<%= form_with(url: "/upload", method: "post", multipart: true) do |form| %>
+  <%= form.file_field :picture %>
+  <%= form.submit "Upload" %>
+<% end %>
+
+<%= link_to "Take Picture", "/take_picture" %>
