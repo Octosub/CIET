@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: "pages#home"
 
   get "/scan", to: "pages#scan", as: :scan
-  resources :food, only: ['index', 'show', 'create']
+  resources :foods, only: ['index', 'show', 'create']
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
