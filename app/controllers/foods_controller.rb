@@ -1,7 +1,11 @@
 class FoodsController < ApplicationController
+  require 'json'
+  require "open-uri"
 
   def show
     @food = Food.find(params[:id])
+    @vegan_boolean = vegan_check
+    @vegan_flags = vegan_flags
   end
 
   def new
@@ -10,17 +14,35 @@ class FoodsController < ApplicationController
 
   def create
     @food = Food.new(food_params)
+    @food.ingredient_list = @food.ingredient_list.gsub(" ", "")
     @food.user = current_user
     if @food.save
       redirect_to food_path(@food)
     else
+      flash[:error] = @food.errors.full_messages.join(", ")
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def vegan_check
+    ingredients = vegan_api
+    return ingredients["isVeganSafe"]
+  end
+
+  def vegan_flags
+    ingredients = vegan_api
+    return ingredients["isVeganResult"]["nonvegan"] if ingredients["isVeganResult"]["nonvegan"].present?
+  end
+
+  def vegan_api
+    url = "https://is-vegan.netlify.app/.netlify/functions/api?ingredients=#{@food.ingredient_list}"
+    ingredients_serialized = URI.open(url).read
+    JSON.parse(ingredients_serialized)
   end
 
   private
 
   def food_params
-    params.require(:food).permit(:name, photos: [])
+    params.require(:food).permit(:name, :ingredient_list, photos: [])
   end
 end
