@@ -5,9 +5,19 @@
 <% end %>
 <h2>You're scanned Item is <%= "not " if !@vegan_boolean %>vegan</h2>
 <h2>Ingredients</h2>
-<% @vegan_flags.each do |ingredient| %>
-  <h3><%= ingredient.strip.capitalize %> is not vegan</h3>
-<% end %>
-<% (@food.ingredient_list.split(',') - @vegan_flags).each do |ingredient| %>
-  <h3><%= ingredient.strip.capitalize %> is vegan</h3>
+<% if @vegan_flags.present? %>
+  <% @vegan_flags.each do |ingredient| %>
+    <h3><%= ingredient.strip.capitalize %> is not vegan</h3>
+  <% end %>
+  <% (@food.ingredient_list.split(',') - @vegan_flags).each do |ingredient| %>
+    <h3><%= ingredient.strip.capitalize %> is vegan</h3>
+  <% end %>
+<% elsif @vegan_boolean == false %>
+  <% @food.ingredient_list.split(',').each do |ingredient| %>
+    <h3><%= ingredient.strip.capitalize %> is not vegan</h3>
+  <% end %>
+<% elsif @vegan_flags.nil? || @vegan_boolean == true %>
+  <% @food.ingredient_list.split(',').each do |ingredient| %>
+    <h3><%= ingredient.strip.capitalize %> is vegan</h3>
+  <% end %>
 <% end %>

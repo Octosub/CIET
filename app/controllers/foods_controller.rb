@@ -26,12 +26,16 @@ class FoodsController < ApplicationController
 
   def vegan_check
     ingredients = vegan_api
-    return ingredients["isVeganSafe"]
+    ingredients["isVeganSafe"]
   end
 
   def vegan_flags
     ingredients = vegan_api
-    return ingredients["isVeganResult"]["nonvegan"] if ingredients["isVeganResult"]["nonvegan"].present?
+    if @food.ingredient_list.split(',').length > 1
+      return ingredients["isVeganResult"]["nonvegan"]
+    else
+      return []
+    end
   end
 
   def vegan_api
