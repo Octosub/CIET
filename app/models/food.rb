@@ -3,7 +3,6 @@ class Food < ApplicationRecord
 
   has_many_attached :photos
 
-  validates :name, presence: true
   validates :ingredient_list, presence: true
 
 end
