@@ -4,8 +4,15 @@ class Food < ApplicationRecord
 
   # validates :ingredient_list, presence: true
   # validates :photos, presence: true
-  before_save :translate
+  before_save :extract_ingredients, :translate
 
+  def extract_ingredients
+    require "./app/services/Ocr.rb"
+    extracted_text = Ocr.extract_text(self.photos[0])
+    formatted_text = extracted_text
+    self.ingredient_list = formatted_text
+
+  end
 
   def translate
     require "google/cloud/translate/v2"
@@ -19,4 +26,5 @@ class Food < ApplicationRecord
     self.ingredient_list = translation
     puts "translation successfull, saving..."
   end
+
 end
