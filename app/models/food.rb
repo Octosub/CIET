@@ -15,11 +15,7 @@ class Food < ApplicationRecord
   end
 
   def translate
-    require "google/cloud/translate/v2"
-    gtranslate_client = Google::Cloud::Translate::V2.new(
-      project_id: "grounded-elf-415603",
-      credentials: "./grounded-elf-415603-0893a7160822.json"
-     )
+    gtranslate_client = Google::Cloud::Translate::V2.new
     puts "translating..."
 
     translation = gtranslate_client.translate "#{ingredient_list}", to: "en"
