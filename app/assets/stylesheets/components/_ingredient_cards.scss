@@ -1,0 +1,62 @@
+.bar-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding-top: 10px;
+  background-color: rgba($gray, 0.1);
+  margin: 10px 2vw 10px 2vw;
+}
+
+.wide-bar-card {
+  border: 1px solid #333;
+  margin: 5px 3vw 5px 3vw;
+  width: 90%;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 8fr 1fr;
+  gap: 5px;
+  overflow: hidden;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 8fr 1fr;
+  gap: 5px;
+}
+
+.text-wrap {
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toggler {
+  width: 35px;
+  height: 35px;
+}
+
+.extended-infos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
+  overflow: hidden;
+}
+
+.green-background {
+  background-color: rgba($light-green, 0.5);
+}
+
+.red-background {
+  background-color: rgba($red, 0.5);
+}
+
+.gray-background {
+  background-color: rgba($yellow, 0.5);
+}
+
+
+.rotated-element {
+  transition: transform 0.3s ease;
+  transform: rotate(90deg);
+}
