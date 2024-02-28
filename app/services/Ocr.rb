@@ -9,7 +9,7 @@ class Ocr
     end
     client = Google::Cloud::Vision.image_annotator
 
-    data = client.text_detection(image: image_file)
+    data = client.text_detection(image: image_file.url)
     # TODO: extract string from data
     text = ""
     data.responses.each do |res|
