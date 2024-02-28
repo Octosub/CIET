@@ -19,6 +19,8 @@ class FoodsController < ApplicationController
     @food.user = current_user
 
     if @food.save
+      @food.extract_ingredients
+      @food.translate
       puts "save successfull!"
       redirect_to food_path(@food)
     else
