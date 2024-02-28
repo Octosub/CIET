@@ -4,14 +4,21 @@ class Food < ApplicationRecord
 
   # validates :ingredient_list, presence: true
   # validates :photos, presence: true
-  before_save :translate
+  before_save :extract_ingredients, :translate
 
+  def extract_ingredients
+    require "./app/services/Ocr.rb"
+    extracted_text = Ocr.extract_text(self.photos[0])
+    formatted_text = extracted_text
+    self.ingredient_list = formatted_text
+
+  end
 
   def translate
     require "google/cloud/translate/v2"
     gtranslate_client = Google::Cloud::Translate::V2.new(
-      project_id: "INSERT PROJECT ID",
-      credentials: "INSERT CREDENTIAL FILE PATH"
+      project_id: "grounded-elf-415603",
+      credentials: "./grounded-elf-415603-0893a7160822.json"
      )
     puts "translating..."
 
@@ -19,4 +26,5 @@ class Food < ApplicationRecord
     self.ingredient_list = translation
     puts "translation successfull, saving..."
   end
+
 end
