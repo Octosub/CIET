@@ -4,6 +4,6 @@ class PagesController < ApplicationController
   def home
   end
 
-  # def scan
-  # end
+  def scan
+  end
 end
