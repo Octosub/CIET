@@ -5,6 +5,8 @@ ruby "3.1.2"
 # custom
 gem "cloudinary"
 gem 'faker'
+gem 'google-api-client'
+gem 'google-cloud-vision'
 
 gem "google-cloud-translate-v2"
 
