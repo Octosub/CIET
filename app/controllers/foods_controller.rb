@@ -19,7 +19,6 @@ class FoodsController < ApplicationController
 
   def create
     @food = Food.new(food_params)
-    @food.ingredient_list = @food.ingredient_list.gsub(" ", "")
     @food.user = current_user
 
     if @food.save
