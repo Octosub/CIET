@@ -3,7 +3,7 @@ class Food < ApplicationRecord
   has_many_attached :photos
 
   # validates :ingredient_list, presence: true
-  # validates :photos, presence: true
+  validates :photos, presence: true
   # after_save :extract_ingredients, :translate
 
   def extract_ingredients

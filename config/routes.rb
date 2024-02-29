@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   get "/scan", to: "pages#scan", as: :scan
 
-  resources :foods, only: ['index', 'show', 'new', "create"]
+  resources :foods, only: ['index', 'show', 'new', "create", "update", "edit"]
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
