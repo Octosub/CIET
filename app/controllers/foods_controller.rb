@@ -36,6 +36,15 @@ class FoodsController < ApplicationController
     end
   end
 
+  def update
+    @food = Food.find(params[:id])
+    if @food.photos.attach(food_params[:photos])
+      redirect_to food_path(@food)
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def vegan_check
     ingredients = vegan_api
     ingredients["isVeganSafe"]
