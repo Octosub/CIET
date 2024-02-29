@@ -4,14 +4,14 @@ class Food < ApplicationRecord
 
   # validates :ingredient_list, presence: true
   # validates :photos, presence: true
-  before_save :extract_ingredients, :translate
+  # after_save :extract_ingredients, :translate
 
   def extract_ingredients
     require "./app/services/Ocr.rb"
     extracted_text = Ocr.extract_text(self.photos[0])
     formatted_text = extracted_text
     self.ingredient_list = formatted_text
-
+    save
   end
 
   def translate
@@ -21,6 +21,7 @@ class Food < ApplicationRecord
     translation = gtranslate_client.translate "#{ingredient_list}", to: "en"
     self.ingredient_list = translation
     puts "translation successfull, saving..."
+    save
   end
 
 end

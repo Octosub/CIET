@@ -1,0 +1,21 @@
+<h1>History</h1>
+<h2>Vegan</h2>
+<div>
+  <% @foods.each do |food| %>
+    <p>
+      <% if food.vegan %>
+        <%= food.name %>
+      <% end %>
+    </p>
+  <% end %>
+</div>
+<h2>Not Vegan</h2>
+<div>
+  <% @foods.each do |food| %>
+    <p>
+      <% unless food.vegan %>
+        <%= food.name %>
+      <% end %>
+    </p>
+  <% end %>
+</div>
