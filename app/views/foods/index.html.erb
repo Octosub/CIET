@@ -1,0 +1,22 @@
+<h1>History</h1>
+<div class="cards">
+  <% @foods.each do |food| %>
+    <%= link_to food_path(food), class: "text-decoration-none" do %>
+      <div class="card-trip">
+        <%= cl_image_tag food.photos.last.key, height: 300, width: 400, crop: :fill %>
+        <div class="card-trip-infos">
+          <div>
+            <h2>Tags</h2>
+            <p>
+              <% if food.vegan %>
+                Vegan
+              <% end %>
+            </p>
+          </div>
+          <h2 class="card-trip-pricing"></h2>
+          <%= cl_image_tag current_user.photo.key, class: "card-trip-user avatar-bordered" %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
