@@ -12,9 +12,18 @@ class Ocr
 
     data.responses.each do |res|
       res.text_annotations.each do |annotation|
-        text += "#{annotation.description}"
+        modified_text = annotation.description
+
+        text += "#{modified_text.delete("・")}"
       end
     end
+    text.delete!("\n").gsub!("原材料名", "")
+    text.delete!("(国内製造)")
+    text.delete!("こしょう/調味料無機塩等,")
+    text.delete!(":")
+    text = text.split("、")
+    text = text.uniq
+    text = text.join(",")
     return text
   end
 end

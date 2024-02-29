@@ -7,6 +7,7 @@ gem "cloudinary"
 gem 'faker'
 gem 'google-api-client'
 gem 'google-cloud-vision'
+gem 'httparty'
 
 gem "google-cloud-translate-v2"
 
