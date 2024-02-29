@@ -3,11 +3,14 @@
 
     <div class="navbar-items" id="navbarSupportedContent">
       <% if user_signed_in? %>
+        <%= link_to user_session_path, class: 'nav-item' do %>
+          <i class="fa-regular fa-circle-user"></i>
+        <% end %>
         <%= link_to '/', class: 'nav-item' do %>
           <i class="fa-solid fa-expand"></i>
         <% end %>
         <%= link_to '/foods', class: 'nav-item' do %>
-          <i class="fa-solid fa-clock-rotate-left" style="color: #ffffff;"></i>
+          <i class="fa-solid fa-clock-rotate-left"></i>
         <% end %>
       <% else %>
         <%= link_to "Login", new_user_session_path, class: "nav-link" %>
