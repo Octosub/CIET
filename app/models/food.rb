@@ -18,8 +18,17 @@ class Food < ApplicationRecord
     gtranslate_client = Google::Cloud::Translate::V2.new
     puts "translating..."
 
-    translation = gtranslate_client.translate "#{ingredient_list}", to: "en"
-    self.ingredient_list = translation
+    ingredient_list_array = ingredient_list.split("、")
+    translated_ingredient_list = []
+
+    ingredient_list.each do |ingredient|
+      translated_ingredient = gtranslate_client.translate "#{ingredient}", to: "en"
+      translated_ingredient_list << translated_ingredient
+    end
+
+    translated_ingredient_list = translated_ingredient_list.join
+
+    self.ingredient_list = translated_ingredient_list
     puts "translation successfull, saving..."
     save
   end

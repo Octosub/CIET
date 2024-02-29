@@ -2,15 +2,13 @@
   <div class="navbar-container">
 
     <div class="navbar-items" id="navbarSupportedContent">
-      <%= image_tag("CIET_PAINT_LOGO.jpg", height:'50', width:'50', class:'navbar-logo' ) %>
       <% if user_signed_in? %>
         <%= link_to '/', class: 'nav-item' do %>
-          <i class="fa-solid fa-expand" style="color: #ffffff;"></i>
+          <i class="fa-solid fa-expand"></i>
         <% end %>
         <%= link_to '/foods', class: 'nav-item' do %>
           <i class="fa-solid fa-clock-rotate-left" style="color: #ffffff;"></i>
         <% end %>
-        <%= image_tag("flamingo.png", height:'50', width:'50', class: "avatar")%>
       <% else %>
         <%= link_to "Login", new_user_session_path, class: "nav-link" %>
       <% end %>
