@@ -3,6 +3,10 @@ class FoodsController < ApplicationController
   require 'json'
   require "open-uri"
 
+  def index
+    @foods = current_user.foods
+  end
+
   def show
     @food = Food.find(params[:id])
     @vegan_boolean = vegan_check
@@ -21,6 +25,9 @@ class FoodsController < ApplicationController
     if @food.save
       @food.extract_ingredients
       @food.translate
+      @vegan_boolean = vegan_check
+      @food.vegan = @vegan_boolean
+      @food.save
       puts "save successfull!"
       redirect_to food_path(@food)
     else
@@ -52,6 +59,6 @@ class FoodsController < ApplicationController
   private
 
   def food_params
-    params.require(:food).permit(:name, :ingredient_list, photos: [])
+    params.require(:food).permit(:name, :ingredient_list, :vegan, photos: [])
   end
 end

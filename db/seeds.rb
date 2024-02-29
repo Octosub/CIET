@@ -29,14 +29,13 @@ users.each do |user_name|
 
   2.times do
     ingredient_list = ''
-    10.times do
+    9.times do
       ingredient_list += "#{Faker::Food.ingredient}, "
     end
     ingredient_list += Faker::Food.ingredient
     dish = Faker::Food.dish
-    puts user
     puts "creating #{dish}"
-    food = Food.new(name: dish, ingredient_list: ingredient_list )
+    food = Food.new(name: dish, ingredient_list: ingredient_list, vegan: true)
     food.user = user
 
     puts "attaching picture 1"
