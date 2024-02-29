@@ -20,7 +20,7 @@ class Ocr
     text.delete!("\n").gsub!("原材料名", "")
     text.delete!("(国内製造)")
     text.delete!("こしょう/調味料無機塩等,")
-    text.delete!(":").gsub!(" ", "、")
+    text.delete!(":")
     text = text.split("、")
     text = text.uniq
     text = text.join(",")
