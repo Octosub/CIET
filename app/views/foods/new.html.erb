@@ -1,8 +1,5 @@
 <%= simple_form_for @food, method: "post" do |f| %>
   <%= f.input :name %>
   <%= f.input :photos, as: :file, input_html: { multiple: true } %>
-  <%= f.text_field :ingredient_list, placeholder: "Enter ingredients, separated by commas" %>
-  (just for testing)
-  <br>
   <%= f.submit "Scan!" %>
 <% end %>
