@@ -15,20 +15,21 @@
 .navbar-items {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   text-decoration: none;
 }
 
 .navbar-items > a {
-  color: $gray;
-  text-decoration: none;
-  line-height: 300%;
-  padding: 0 10px;
-  border-radius: 30px;
   width: 25%;
   text-align: center;
+  height: 100%;
+  line-height: 500%;
+}
 
+.navbar-items > a > i {
+  font-size: 2rem;
+  color: $light-gray;
 }
 
 .navbar-items img {
