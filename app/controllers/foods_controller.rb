@@ -2,6 +2,7 @@ class FoodsController < ApplicationController
 
   require 'json'
   require "open-uri"
+  require "i18n"
 
   def index
     @foods = current_user.foods
@@ -50,8 +51,9 @@ class FoodsController < ApplicationController
   end
 
   def vegan_api
-    url = "https://is-vegan.netlify.app/.netlify/functions/api?ingredients=#{@food.ingredient_list}"
-    ingredients_serialized = URI.open(url).read
+    url = "https://is-vegan.netlify.app/.netlify/functions/api?ingredients=#{I18n.transliterate(@food.ingredient_list)}"
+    e_url = CGI.escape(url)
+    ingredients_serialized = HTTParty.get(url).body
     JSON.parse(ingredients_serialized)
   end
 
