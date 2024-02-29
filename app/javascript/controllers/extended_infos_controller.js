@@ -5,7 +5,7 @@ export default class extends Controller {
   static targets = [ "info" ];
 
   connect() {
-    console.log("connected", this.infoTarget);
+    // console.log("connected", this.infoTarget);
   }
 
   revealInfos(event) {
