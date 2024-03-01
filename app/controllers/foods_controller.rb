@@ -13,11 +13,7 @@ class FoodsController < ApplicationController
     @vegan_boolean = vegan_check
     @vegan_flags = vegan_flags
   end
-
-  def new
-    @food = Food.new
-  end
-
+  
   def create
     @food = Food.new(food_params)
     @food.user = current_user

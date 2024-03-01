@@ -1,4 +1,0 @@
-<%= simple_form_for @food, method: "post", data: {controller: "autosubmit", 'autosubmit-target': "form"} do |f| %>
-  <%= f.input :name %>
-  <%= f.input :photos, as: :file, input_html: { multiple: true, data: {action: "input->autosubmit#submitForm"} } %>
-<% end %>
