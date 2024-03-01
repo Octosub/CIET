@@ -18,3 +18,28 @@
   opacity: 0;
   margin-top: 20vh;
 }
+
+.invisible-form-small {
+  opacity: 0;
+  height: 50px;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+}
+
+.plus-icon-invisible {
+  position: relative;
+  top: -50px;
+  width: 50%;
+  img {
+    height: 30px;
+    width: 30px;
+  }
+}
+
+.pictures-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
