@@ -4,7 +4,9 @@
   justify-content: space-around;
   padding-top: 10px;
   background-color: rgba($light-gray, 0.3);
-  margin: 10px 2vw 10px 2vw;
+  margin: 0 10px;
+  border-radius: 20px;
+  padding-bottom: 20px;
 }
 
 .wide-bar-card {
@@ -67,4 +69,3 @@
 .red-border-image {
   border: rgba($red, 0.8) 5px solid;
 }
-
