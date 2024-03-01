@@ -1,24 +1,31 @@
-<h1>History</h1>
-<div class="cards">
-  <% @foods.each do |food| %>
-    <%= link_to food_path(food), class: "text-decoration-none" do %>
-      <div class="card-trip">
-        <%= cl_image_tag food.photos.last.key, height: 300, width: 400, crop: :fill %>
-        <div class="card-trip-infos">
-          <div>
-            <h2>Tags</h2>
-            <p>
-              <% if food.vegan %>
-                Vegan
-              <% else %>
-                Not Vegan
-              <% end %>
-            </p>
-          </div>
-          <h2 class="card-trip-pricing"></h2>
-          <%= cl_image_tag current_user.photo.key, class: "card-trip-user avatar-bordered" %>
+<div class="cards-container">
+  <div id="image-track">
+    <% @foods.each do |food| %>
+      <% if food.vegan %>
+        <div class="vegan-food-history-item">
+          <%= link_to food_path(food), class: "text-decoration-none food-card-container" do %>
+            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fill, class:'border-green' %>
+            <div class="vegan-item">
+              <p>
+                <i class="fa-solid fa-seedling" style="color: #ffffff;"></i>
+                <%= food.name.present? ? food.name : "Item Nr.#{food.id}" %>
+              </p>
+            </div>
+          <% end %>
         </div>
-      </div>
+      <% else %>
+        <div class="non-vegan-food-history-item">
+          <%= link_to food_path(food), class: "text-decoration-none food-card-container" do %>
+            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fill, class:'border-red' %>
+            <div class="non-vegan-item">
+              <p>
+                <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
+                <%= food.name.present? ? food.name : "Item Nr.#{food.id}" %>
+              </p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
