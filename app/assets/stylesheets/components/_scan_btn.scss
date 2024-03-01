@@ -1,0 +1,21 @@
+.scan-btn {
+  height: 200px;
+  width: 200px;
+}
+
+.scan-btn-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.scan-btn-container img {
+  border-radius: 50%;
+  border: solid $dark-green 7px;
+  border-radius: 50%;
+}
+
+.scan-btn-container h1 {
+  font-size: 4rem;
+  color: $dark-green;
+}

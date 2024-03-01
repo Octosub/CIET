@@ -1,9 +1,7 @@
-<!--<div class="scan-btn">
-  <% link_to new_food_path do %>
+
+<div class="scan-btn-container">
+  <%= link_to new_food_path do %>
+    <%= image_tag("logo.png", class:'scan-btn') %>
   <% end %>
+  <h1>SCAN</h1>
 </div>
--->
-
-<%= link_to "scan", new_food_path %>
-
-<%= image_tag("logo.png", height: '30', width: '30') %>

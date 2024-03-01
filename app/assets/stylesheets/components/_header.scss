@@ -1,8 +1,9 @@
 .header-container {
-  background-color: $light-green;
-  color: $light-gray;
+  height: 5vh;
+  background-color: white;
+  color: $dark-gray;
+  border-bottom: solid 2px $light-green;
   width: 100%;
-  height: 5%;
   text-align: center;
   position: sticky;
   top: 0px;
