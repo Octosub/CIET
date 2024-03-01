@@ -1,0 +1,11 @@
+.one-lined-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  margin: 5px 3vw 5px 3vw;
+  width: 90%;
+}
+
+.seventy-width-input {
+  width: 70%;
+}
