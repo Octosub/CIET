@@ -27,12 +27,12 @@
   <% else %>
     <%= simple_form_for @food, method: "patch", data: { controller: "autosubmit", 'autosubmit-target': "form"} do |f| %>
       <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, data: {action: "input->autosubmit#submitForm"}, class: "invisible-form-small" } %>
-    <% end %>
     <div class="plus-icon-invisible">
       <div>
         <%= image_tag "icon_plus" %> Add a new photo
       </div>
     </div>
+    <% end %>
     <% if @food.vegan %>
       <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image green-border-image" %>
     <% else %>
