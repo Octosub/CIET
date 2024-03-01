@@ -5,7 +5,7 @@ class FoodsController < ApplicationController
   require "i18n"
 
   def index
-    @foods = current_user.foods.reverse_order
+    @foods = current_user.foods
   end
 
   def show
@@ -13,7 +13,11 @@ class FoodsController < ApplicationController
     @vegan_boolean = vegan_check
     @vegan_flags = vegan_flags
   end
-  
+
+  def new
+    @food = Food.new
+  end
+
   def create
     @food = Food.new(food_params)
     @food.user = current_user

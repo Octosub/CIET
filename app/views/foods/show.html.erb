@@ -4,26 +4,27 @@
   <h1>Your Scanned Product</h1>
   <div class="d-flex justify-content-center">
     <%= simple_form_for @food, method: "patch" do |f| %>
-  <div class="row g-3">
-    <div class="col-auto">
-      <%= f.input :name, label: false, placeholder: "Enter Product Name" %>
+      <div class="row g-3">
+        <div class="col-auto">
+          <%= f.input :name, label: false, placeholder: "Enter Product Name" %>
+        </div>
+        <div class="col-auto">
+          <%= f.submit "Add Name", class: "btn btn-primary mb-3" %>
+        </div>
       </div>
-      <div class="col-auto">
-      <%= f.submit "Add Name", class: "btn btn-primary mb-3" %>
-      </div>
-  </div>
     <% end %>
-    </div>
+  </div>
 <% end %>
-<div class="pictures-container">
+<div class="pictures-container" data-controller="phototoggler">
   <% if @food.photos[1].present? %>
-    <%= cl_image_tag @food.photos[1].key, height: 300, width: 400, crop: :fill, class: "big-centered-image green-border-image" %>
+    <%= cl_image_tag @food.photos[1].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "front", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image green-border-image" %>
+    <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image green-border-image d-none" %>
   <% else %>
-    <%= simple_form_for @food, method: "patch", data: {controller: "autosubmit", 'autosubmit-target': "form"} do |f| %>
+    <%= simple_form_for @food, method: "patch", data: { controller: "autosubmit", 'autosubmit-target': "form"} do |f| %>
       <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, data: {action: "input->autosubmit#submitForm"} } %>
     <% end %>
+    <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image green-border-image" %>
   <% end %>
-  <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, class: "big-centered-image green-border-image" %>
 </div>
 <h2>You're scanned Item is <%= "not " if !@vegan_boolean %>vegan</h2>
 <div class="bar-container">
