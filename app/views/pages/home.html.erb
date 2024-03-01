@@ -1,8 +1,8 @@
 <div class="landing-page-container">
   <div class="scan-btn-container">
-    <%= link_to new_food_path do %>
-      <%= image_tag("logo.png", class:'scan-btn') %>
+    <%= image_tag("scan_button", class:'scan-btn') %>
+    <%= simple_form_for @food, method: "post", data: {controller: "autosubmit", 'autosubmit-target': "form"} do |f| %>
+      <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, data: {action: "input->autosubmit#submitForm"}, class: "image-form" } %>
     <% end %>
-    <h1>SCAN</h1>
   </div>
 </div>
