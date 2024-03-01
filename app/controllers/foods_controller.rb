@@ -5,7 +5,7 @@ class FoodsController < ApplicationController
   require "i18n"
 
   def index
-    @foods = current_user.foods
+    @foods = current_user.foods.reverse_order
   end
 
   def show
