@@ -63,7 +63,6 @@ class FoodsController < ApplicationController
   def vegan_api
     ingredients = @food.ingredient_list.gsub("&#39;", "")
     url = "https://is-vegan.netlify.app/.netlify/functions/api?ingredients=#{I18n.transliterate(ingredients)}"
-    e_url = CGI.escape(url)
     ingredients_serialized = HTTParty.get(url).body
     JSON.parse(ingredients_serialized)
   end
