@@ -25,8 +25,7 @@ class FoodsController < ApplicationController
     if @food.save
       @food.extract_ingredients
       @food.translate
-      @vegan_boolean = vegan_check
-      @food.vegan = @vegan_boolean
+      @food.vegan = vegan_check
       @food.save
       puts "save successfull!"
       redirect_to food_path(@food)
@@ -38,7 +37,9 @@ class FoodsController < ApplicationController
 
   def update
     @food = Food.find(params[:id])
-    if @food.photos.attach(food_params[:photos])
+    if @food.photos.attach(food_params[:photos]) || food_params[:name].present?
+      @food.name = food_params[:name]
+      @food.save
       redirect_to food_path(@food)
     else
       render :edit, status: :unprocessable_entity

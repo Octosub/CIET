@@ -11,19 +11,32 @@ class Ocr
     text = ""
 
     data.responses.each do |res|
-      res.text_annotations.each do |annotation|
-        modified_text = annotation.description
-
-        text += "#{modified_text.delete("・")}"
-      end
+      text = res.text_annotations[0].description
     end
-    text.delete!("\n").gsub!("原材料名", "")
-    text.delete!("(国内製造)")
-    text.delete!("こしょう/調味料無機塩等,")
-    text.delete!(":")
-    text = text.split("、")
-    text = text.uniq
-    text = text.join(",")
-    return text
+
+    return cleanup(text)
   end
+end
+
+private
+
+def cleanup(text)
+  text = text.delete("\n")
+  text = text.gsub(/(一部に).*含む\)?$/, "")
+  text = text.delete("(")
+  text = text.delete(")")
+  text = text.delete("等")
+  text = text.delete("調味料")
+  text = text.delete(":")
+  text = text.delete("国内製造")
+  text = text.delete("原材料名")
+  text = text.gsub("、 ", ",")
+  text = text.gsub("、", ",")
+  text = text.gsub("・", ",")
+  text = text.gsub("/", ",")
+  text = text.gsub("､", ",")
+  text = text.gsub(" ", ",")
+  text = text.gsub(",,", ",")
+  text[-1] = ""
+  return text
 end
