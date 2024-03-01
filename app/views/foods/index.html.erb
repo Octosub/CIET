@@ -4,7 +4,12 @@
     <%= link_to food_path(food), class: "text-decoration-none" do %>
       <div class="card-trip">
         <%= cl_image_tag food.photos.last.key, height: 300, width: 400, crop: :fill %>
-        <div class="card-trip-infos">
+        <div class="card-trip-infos
+        <% if food.vegan %>
+          green-background
+        <% else %>
+          red-background
+        <% end %>">
           <div>
             <h2>Tags</h2>
             <p>
