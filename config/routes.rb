@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
 
-  get "/scan", to: "pages#scan", as: :scan
+  get "/foods/show_lazy/",to: "foods#show_lazy"
 
   resources :foods, only: ['index', 'show', 'new', "create", "update", "edit"]
 

@@ -8,10 +8,19 @@ class FoodsController < ApplicationController
     @foods = current_user.foods.reverse_order
   end
 
-  def show
-    @food = Food.find(params[:id])
+  def show_lazy
+    @food = Food.find(params[:format])
+    @food.extract_ingredients
+    @food.translate
+    @food.vegan = vegan_check
+    @food.save
     @vegan_boolean = vegan_check
     @vegan_flags = vegan_flags
+  end
+
+  def show
+    puts "save successfull!"
+    @food = Food.find(params[:id])
   end
 
   def new
@@ -21,13 +30,7 @@ class FoodsController < ApplicationController
   def create
     @food = Food.new(food_params)
     @food.user = current_user
-
     if @food.save
-      @food.extract_ingredients
-      @food.translate
-      @food.vegan = vegan_check
-      @food.save
-      puts "save successfull!"
       redirect_to food_path(@food)
     else
       flash[:error] = @food.errors.full_messages.join(", ")
