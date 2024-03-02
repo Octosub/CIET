@@ -42,7 +42,7 @@ class Food < ApplicationRecord
     client = OpenAI::Client.new
     chaptgpt_response = client.chat(parameters: {
     model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: "Classify the following list of ingredients in #{preference}, non-#{preference}, or can-be-#{preference}. Every product must be in one of the categories. Respond with one output for all products in the following format:
+    messages: [{ role: "user", content: "Classify the following list of ingredients in #{preference}, non-#{preference}, or can-be-#{preference}. Ignore Words that do not make sense to be on an ingredients list. Every product must be in one of the categories. Respond with one output for all products in the following format:
       {\"#{preference}?\": \"true\" (if all ingredients are #{preference}), \"false\" (if at least one of the ingredients is non-#{preference}) or \"can-be\" (if all ingredients are #{preference} and at least one is can-be-#{preference}); \"false-flags\": all non-#{preference} ingredients; \"can-be-flags\": all can-be or unsure ingredients; \"true-flags\": all #{preference} ingredients}
       ingredients: #{self.ingredient_list.gsub("&#39;", "")}"}]
     })

@@ -43,7 +43,13 @@
     <% end %>
   <% end %>
 </div>
-<h2>You're scanned Item is <%= "not " if !@food.vegan %>vegan</h2>
+<% if @food.vegan == "can-be" %>
+  <h2>Your scanned Item can be vegan</h2>
+<% elsif @food.vegan %>
+  <h2>Your scanned Item is vegan</h2>
+<% else %>
+  <h2>Your scanned Item is not vegan</h2>
+<% end %>
 <div class="bar-container">
   <h2>All Ingredients</h2>
   <% if @non_vegan_flags.present? %>
@@ -59,23 +65,12 @@
         </div>
       </div>
     <% end %>
-    <% (@true_vegan_flags).each do |ingredient| %>
-      <div class="wide-bar-card green-background" data-controller="extended-infos">
+  <% end %>
+  <% if @can_be_vegan_flags.present? %>
+    <% @can_be_vegan_flags.each do |ingredient| %>
+      <div class="wide-bar-card yellow-background" data-controller="extended-infos">
         <div class="toggle-grid">
-          <p class="text-wrap"><strong><%= ingredient.strip.capitalize %></strong> is vegan</p>
-          <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
-        </div>
-        <div class="d-none extended-infos" data-extended-infos-target="info">
-          <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient}", target: '_blank', class: "btn btn-primary" %>
-          <%= link_to "🛑 Not Vegan", "", class: "btn btn-primary" %>
-        </div>
-      </div>
-    <% end %>
-  <% elsif @food.vegan == false %>
-    <% @food.ingredient_list.split(',').each do |ingredient| %>
-      <div class="wide-bar-card red-background" data-controller="extended-infos">
-        <div class="toggle-grid">
-          <p class="text-wrap"><strong><%= ingredient.strip.capitalize %></strong> is not vegan</p>
+          <p class="text-wrap"><strong><%= ingredient.strip.capitalize %></strong> can be vegan</p>
           <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
         </div>
         <div class="d-none extended-infos" data-extended-infos-target="info">
@@ -84,8 +79,9 @@
         </div>
       </div>
     <% end %>
-  <% elsif @non_vegan_flags.nil? || @food.vegan == true %>
-    <% @food.ingredient_list.split(',').each do |ingredient| %>
+  <% end %>
+  <% if @true_vegan_flags.present? %>
+    <% @true_vegan_flags.each do |ingredient| %>
       <div class="wide-bar-card green-background" data-controller="extended-infos">
         <div class="toggle-grid">
           <p class="text-wrap"><strong><%= ingredient.strip.capitalize %></strong> is vegan</p>
