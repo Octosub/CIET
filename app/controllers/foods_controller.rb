@@ -37,7 +37,7 @@ class FoodsController < ApplicationController
   def update
     @food = Food.find(params[:id])
     if @food.photos.attach(food_params[:photos]) || food_params[:name].present?
-      @food.name = food_params[:name]
+      @food.name = food_params[:name] if food_params[:name].present?
       @food.save
       redirect_to food_path(@food)
     else
@@ -52,13 +52,9 @@ class FoodsController < ApplicationController
   end
 
   def vegan_classification
-    vegan_api_call = @food.vegan_api
-    if @food.ingredient_list.split(',').length > 1
-      @non_vegan_flags = vegan_api_call["isVeganResult"]["nonvegan"]
-    else
-      @non_vegan_flags = []
-    end
-    @true_vegan_flags = @food.ingredient_list.split(',') - @non_vegan_flags
-    # @can_be_vegan_flags = @food.ingredient_list.split(',') - @true_vegan_flags - @non_vegan_flags
+    @gpt_response = @food.vegan_api
+    @non_vegan_flags = @gpt_response["false-flags"]
+    @can_be_vegan_flags = @gpt_response["can-be-flags"]
+    @true_vegan_flags = @gpt_response["true-flags"]
   end
 end

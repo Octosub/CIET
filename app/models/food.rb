@@ -33,41 +33,19 @@ class Food < ApplicationRecord
   end
 
   def vegan_boolean
-    ingredients = vegan_api
-    ingredients["isVeganSafe"]
+    gpt_response = vegan_api
+    gpt_response["vegan?"]
   end
 
-  # def true_vegan_flags
-  # end
-
-  # def can_be_vegan_flags
-  # end
-
-  # def non_vegan_flags
-  #   ingredients = vegan_api
-  #   if self.ingredient_list.split(',').length > 1
-  #     return ingredients["isVeganResult"]["nonvegan"]
-  #   else
-  #     return []
-  #   end
-  # end
-
-  # def vegetarian_boolean
-  # end
-
-  # def true_vegetarian_flags
-  # end
-
-  # def can_be_vegetarian_flags
-  # end
-
-  # def non_vegetarian_flags
-  # end
-
   def vegan_api
-    ingredients = self.ingredient_list.gsub("&#39;", "")
-    url = "https://is-vegan.netlify.app/.netlify/functions/api?ingredients=#{I18n.transliterate(ingredients)}"
-    ingredients_serialized = HTTParty.get(url).body
-    JSON.parse(ingredients_serialized)
+    preference = "vegan"
+    client = OpenAI::Client.new
+    chaptgpt_response = client.chat(parameters: {
+    model: "gpt-3.5-turbo",
+    messages: [{ role: "user", content: "Classify the following list of ingredients in #{preference}, non-#{preference}, or can-be-#{preference}. Every product must be in one of the categories. Respond with one output for all products in the following format:
+      {\"#{preference}?\": \"true\" (if all ingredients are #{preference}), \"false\" (if at least one of the ingredients is non-#{preference}) or \"can-be\" (if all ingredients are #{preference} and at least one is can-be-#{preference}); \"false-flags\": all non-#{preference} ingredients; \"can-be-flags\": all can-be or unsure ingredients; \"true-flags\": all #{preference} ingredients}
+      ingredients: #{self.ingredient_list.gsub("&#39;", "")}"}]
+    })
+    JSON.parse(chaptgpt_response["choices"][0]["message"]["content"])
   end
 end
