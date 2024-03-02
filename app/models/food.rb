@@ -39,12 +39,23 @@ class Food < ApplicationRecord
 
   def vegan_api
     preference = "vegan"
+    prompt = <<~PROMPT
+    "Classify the following list of ingredients into #{preference}, non-#{preference}, or can-be-#{preference} categories as accurately as possible. Please separate each ingredient with commas. Ignore words that do not make sense in an ingredients list. Here's an example: "Ingredient1, Ingredient2, Ingredient3." Respond as accurately as possible with one output for all products in the following format:
+      {
+        "#{preference}?": "false",  // always if at least one ingredient is non-#{preference}
+        "#{preference}?": "can-be",  // only if no ingredient is non-#{preference}, with at least one can-be-#{preference} ingredient
+        "#{preference}?": "true",  // only if all ingredients are #{preference}
+        "false-flags": ["non-#{preference} ingredient1", "non-#{preference} ingredient2", ...],  // list of all but only non-#{preference} ingredients
+        "can-be-flags": ["can-be ingredient1", "can-be ingredient2", ...],  // list of ingredients that can be #{preference}, depending on they way they are produced
+        "true-flags": ["#{preference} ingredient1", "#{preference} ingredient2", ...]  // list of all #{preference} ingredients
+      }
+    Ingredients: #{self.ingredient_list.gsub("&#39;", "")}"
+    PROMPT
     client = OpenAI::Client.new
     chaptgpt_response = client.chat(parameters: {
     model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: "Classify the following list of ingredients in #{preference}, non-#{preference}, or can-be-#{preference}. Ignore Words that do not make sense to be on an ingredients list. Every product must be in one of the categories. Respond with one output for all products in the following format:
-      {\"#{preference}?\": \"true\" (if all ingredients are #{preference}), \"false\" (if at least one of the ingredients is non-#{preference}) or \"can-be\" (if all ingredients are #{preference} and at least one is can-be-#{preference}); \"false-flags\": all non-#{preference} ingredients; \"can-be-flags\": all can-be or unsure ingredients; \"true-flags\": all #{preference} ingredients}
-      ingredients: #{self.ingredient_list.gsub("&#39;", "")}"}]
+    messages: [{ role: "user", content: prompt}],
+    temperature: 0.0
     })
     JSON.parse(chaptgpt_response["choices"][0]["message"]["content"])
   end

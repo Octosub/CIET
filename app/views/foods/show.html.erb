@@ -1,3 +1,4 @@
+<%# binding.pry %>
 <% if @food.name.present? %>
   <h1><%= @food.name %></h1>
 <% else %>
@@ -45,7 +46,7 @@
 </div>
 <% if @food.vegan == "can-be" %>
   <h2>Your scanned Item can be vegan</h2>
-<% elsif @food.vegan %>
+<% elsif @food.vegan == "true" %>
   <h2>Your scanned Item is vegan</h2>
 <% else %>
   <h2>Your scanned Item is not vegan</h2>

@@ -46,6 +46,7 @@ def cleanup(text)
   text = text.gsub("､", ",")
   text = text.gsub(" ", ",")
   text = text.gsub(",,", ",")
+  text = text.gsub("-", "")
   text[-1] = ""
   text = text.split(",")
   text = text.uniq
