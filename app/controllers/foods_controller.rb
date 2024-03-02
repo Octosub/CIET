@@ -10,8 +10,8 @@ class FoodsController < ApplicationController
 
   def show
     @food = Food.find(params[:id])
-    @vegan_boolean = vegan_check
-    @vegan_flags = vegan_flags
+    # @non_vegan_flags = @food.non_vegan_flags
+    vegan_classification
   end
 
   def new
@@ -25,7 +25,7 @@ class FoodsController < ApplicationController
     if @food.save
       @food.extract_ingredients
       @food.translate
-      @food.vegan = vegan_check
+      @food.vegan = @food.vegan_boolean
       @food.save
       puts "save successfull!"
       redirect_to food_path(@food)
@@ -46,18 +46,21 @@ class FoodsController < ApplicationController
     end
   end
 
-  def vegan_check
-    ingredients = vegan_api
-    ingredients["isVeganSafe"]
+  private
+
+  def food_params
+    params.require(:food).permit(:name, :ingredient_list, :vegan, photos: [])
   end
 
-  def vegan_flags
+
+  def vegan_classification
     ingredients = vegan_api
     if @food.ingredient_list.split(',').length > 1
-      return ingredients["isVeganResult"]["nonvegan"]
+      @non_vegan_flags = ingredients["isVeganResult"]["nonvegan"]
     else
-      return []
+      @non_vegan_flags = []
     end
+    @
   end
 
   def vegan_api
@@ -65,11 +68,5 @@ class FoodsController < ApplicationController
     url = "https://is-vegan.netlify.app/.netlify/functions/api?ingredients=#{I18n.transliterate(ingredients)}"
     ingredients_serialized = HTTParty.get(url).body
     JSON.parse(ingredients_serialized)
-  end
-
-  private
-
-  def food_params
-    params.require(:food).permit(:name, :ingredient_list, :vegan, photos: [])
   end
 end

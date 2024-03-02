@@ -40,11 +40,11 @@
     <% end %>
   <% end %>
 </div>
-<h2>You're scanned Item is <%= "not " if !@vegan_boolean %>vegan</h2>
+<h2>You're scanned Item is <%= "not " if !@food.vegan %>vegan</h2>
 <div class="bar-container">
   <h2>All Ingredients</h2>
-  <% if @vegan_flags.present? %>
-    <% @vegan_flags.each do |ingredient| %>
+  <% if @non_vegan_flags.present? %>
+    <% @non_vegan_flags.each do |ingredient| %>
       <div class="wide-bar-card red-background" data-controller="extended-infos">
         <div class="toggle-grid">
           <p class="text-wrap"><strong><%= ingredient.strip.capitalize %></strong> is not vegan</p>
@@ -56,7 +56,7 @@
         </div>
       </div>
     <% end %>
-    <% (@food.ingredient_list.split(',') - @vegan_flags).each do |ingredient| %>
+    <% (@food.ingredient_list.split(',') - @non_vegan_flags).each do |ingredient| %>
       <div class="wide-bar-card green-background" data-controller="extended-infos">
         <div class="toggle-grid">
           <p class="text-wrap"><strong><%= ingredient.strip.capitalize %></strong> is vegan</p>
@@ -68,7 +68,7 @@
         </div>
       </div>
     <% end %>
-  <% elsif @vegan_boolean == false %>
+  <% elsif @food.vegan == false %>
     <% @food.ingredient_list.split(',').each do |ingredient| %>
       <div class="wide-bar-card red-background" data-controller="extended-infos">
         <div class="toggle-grid">
@@ -81,7 +81,7 @@
         </div>
       </div>
     <% end %>
-  <% elsif @vegan_flags.nil? || @vegan_boolean == true %>
+  <% elsif @non_vegan_flags.nil? || @food.vegan == true %>
     <% @food.ingredient_list.split(',').each do |ingredient| %>
       <div class="wide-bar-card green-background" data-controller="extended-infos">
         <div class="toggle-grid">
