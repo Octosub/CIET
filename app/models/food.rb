@@ -43,14 +43,14 @@ class Food < ApplicationRecord
   # def can_be_vegan_flags
   # end
 
-  def non_vegan_flags
-    ingredients = vegan_api
-    if self.ingredient_list.split(',').length > 1
-      return ingredients["isVeganResult"]["nonvegan"]
-    else
-      return []
-    end
-  end
+  # def non_vegan_flags
+  #   ingredients = vegan_api
+  #   if self.ingredient_list.split(',').length > 1
+  #     return ingredients["isVeganResult"]["nonvegan"]
+  #   else
+  #     return []
+  #   end
+  # end
 
   # def vegetarian_boolean
   # end
@@ -63,8 +63,6 @@ class Food < ApplicationRecord
 
   # def non_vegetarian_flags
   # end
-
-private
 
   def vegan_api
     ingredients = self.ingredient_list.gsub("&#39;", "")

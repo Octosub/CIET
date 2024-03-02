@@ -56,7 +56,7 @@
         </div>
       </div>
     <% end %>
-    <% (@food.ingredient_list.split(',') - @non_vegan_flags).each do |ingredient| %>
+    <% (@true_vegan_flags).each do |ingredient| %>
       <div class="wide-bar-card green-background" data-controller="extended-infos">
         <div class="toggle-grid">
           <p class="text-wrap"><strong><%= ingredient.strip.capitalize %></strong> is vegan</p>
