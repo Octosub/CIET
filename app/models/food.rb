@@ -33,7 +33,8 @@ class Food < ApplicationRecord
   end
 
   def vegan_boolean
-    gpt_response = Gpt.classify_food_ingredient_list
+    # needs change, just here so it doesnt break
+    gpt_response = Gpt.classify_food_ingredient_list(self)
     if !gpt_response["false-flags"].empty?
       self.vegan = "false"
     elsif !gpt_response["can-be-flags"].empty?
@@ -41,5 +42,6 @@ class Food < ApplicationRecord
     else
       self.vegan = "true"
     end
+    self.save
   end
 end
