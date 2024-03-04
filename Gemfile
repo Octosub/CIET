@@ -8,8 +8,8 @@ gem 'faker'
 gem 'google-api-client'
 gem 'google-cloud-vision'
 gem 'httparty'
-
 gem "google-cloud-translate-v2"
+gem 'deepl-rb', require: 'deepl'
 
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
