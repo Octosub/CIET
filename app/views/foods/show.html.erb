@@ -34,6 +34,7 @@
         <div>
           <%= image_tag "icon_plus.png" %> Add Front Photo
         </div>
+      </div>
       <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, data: {action: "input->autosubmit#submitPicture"}, class: "invisible-form-small" } %>
     <% end %>
     <% if @food.vegan %>

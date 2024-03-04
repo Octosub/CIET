@@ -11,7 +11,7 @@ class Gpt
       ingredient.dairy_free = "true"
     else
       if vegan_response.downcase.include?("false")
-        ingredient.vegan = false
+        ingredient.vegan = "false"
       else
         ingredient.vegan = "can-be"
       end
