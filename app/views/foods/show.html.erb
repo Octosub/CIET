@@ -1,3 +1,4 @@
+<%# binding.pry %>
 <% if @food.name.present? %>
   <h1><%= @food.name %></h1>
 <% else %>
@@ -6,7 +7,7 @@
     <%= simple_form_for @food, method: "patch" do |f| %>
       <div class="row g-3">
         <div class="col-auto">
-          <%= f.input :name, label: false, placeholder: "Enter Product Name" %>
+          <h1><%= f.input :name, label: false, placeholder: "Enter Product Name" %></h1>
         </div>
         <div class="col-auto">
           <%= f.submit "+", class: "btn btn-primary mb-3" %>
@@ -17,7 +18,10 @@
 <% end %>
 <div class="pictures-container" data-controller="phototoggler">
   <% if @food.photos[1].present? %>
-    <% if @food.vegan %>
+    <% if @food.vegan == "can-be" %>
+      <%= cl_image_tag @food.photos[1].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "front", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image yellow-border-image" %>
+      <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image yellow-border-image d-none" %>
+    <% elsif @food.vegan == "true" %>
       <%= cl_image_tag @food.photos[1].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "front", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image green-border-image" %>
       <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image green-border-image d-none" %>
     <% else %>
@@ -26,12 +30,11 @@
     <% end %>
   <% else %>
     <%= simple_form_for @food, method: "patch", data: { controller: "autosubmit", 'autosubmit-target': "form"} do |f| %>
+      <div class="plus-icon-invisible">
+        <div>
+          <%= image_tag "icon_plus.png" %> Add Front Photo
+        </div>
       <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, data: {action: "input->autosubmit#submitPicture"}, class: "invisible-form-small" } %>
-    <div class="plus-icon-invisible">
-      <div>
-        <%= image_tag "icon_plus.png" %> Add a new photo
-      </div>
-    </div>
     <% end %>
     <% if @food.vegan %>
       <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image green-border-image" %>
@@ -40,7 +43,13 @@
     <% end %>
   <% end %>
 </div>
-<h2>You're scanned Item is <%= "not " if !@food.vegan %>vegan</h2>
+<% if @food.vegan == "can-be" %>
+  <h2>Your scanned Item can be vegan</h2>
+<% elsif @food.vegan == true %>
+  <h2>Your scanned Item is vegan</h2>
+<% else %>
+  <h2>Your scanned Item is not vegan</h2>
+<% end %>
 <div class="bar-container">
   <h2>All Ingredients</h2>
   <% if @non_vegan_flags.present? %>
@@ -56,23 +65,12 @@
         </div>
       </div>
     <% end %>
-    <% (@true_vegan_flags).each do |ingredient| %>
-      <div class="wide-bar-card green-background" data-controller="extended-infos">
+  <% end %>
+  <% if @can_be_vegan_flags.present? %>
+    <% @can_be_vegan_flags.each do |ingredient| %>
+      <div class="wide-bar-card yellow-background" data-controller="extended-infos">
         <div class="toggle-grid">
-          <p class="text-wrap"><strong><%= ingredient.strip.capitalize %></strong> is vegan</p>
-          <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
-        </div>
-        <div class="d-none extended-infos" data-extended-infos-target="info">
-          <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient}", target: '_blank', class: "btn btn-primary" %>
-          <%= link_to "🛑 Not Vegan", "", class: "btn btn-primary" %>
-        </div>
-      </div>
-    <% end %>
-  <% elsif @food.vegan == false %>
-    <% @food.ingredient_list.split(',').each do |ingredient| %>
-      <div class="wide-bar-card red-background" data-controller="extended-infos">
-        <div class="toggle-grid">
-          <p class="text-wrap"><strong><%= ingredient.strip.capitalize %></strong> is not vegan</p>
+          <p class="text-wrap"><strong><%= ingredient.strip.capitalize %></strong> can be vegan</p>
           <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
         </div>
         <div class="d-none extended-infos" data-extended-infos-target="info">
@@ -81,8 +79,9 @@
         </div>
       </div>
     <% end %>
-  <% elsif @non_vegan_flags.nil? || @food.vegan == true %>
-    <% @food.ingredient_list.split(',').each do |ingredient| %>
+  <% end %>
+  <% if @true_vegan_flags.present? %>
+    <% @true_vegan_flags.each do |ingredient| %>
       <div class="wide-bar-card green-background" data-controller="extended-infos">
         <div class="toggle-grid">
           <p class="text-wrap"><strong><%= ingredient.strip.capitalize %></strong> is vegan</p>
