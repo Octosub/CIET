@@ -62,11 +62,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_04_072643) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "vegan"
+    t.string "english_name"
+    t.text "english_description"
     t.string "pescetarian"
     t.string "dairy_free"
     t.string "peanut_free"
-    t.string "english_name"
-    t.text "english_description"
   end
 
   create_table "users", force: :cascade do |t|
