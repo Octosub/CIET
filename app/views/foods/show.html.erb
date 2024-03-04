@@ -26,7 +26,7 @@
     <% end %>
   <% else %>
     <%= simple_form_for @food, method: "patch", data: { controller: "autosubmit", 'autosubmit-target': "form"} do |f| %>
-      <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, data: {action: "input->autosubmit#submitForm"}, class: "invisible-form-small" } %>
+      <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, data: {action: "input->autosubmit#submitPicture"}, class: "invisible-form-small" } %>
     <div class="plus-icon-invisible">
       <div>
         <%= image_tag "icon_plus.png" %> Add a new photo
