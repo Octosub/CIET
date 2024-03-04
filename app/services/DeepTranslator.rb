@@ -15,4 +15,9 @@ class DeepTranslator
 
     return translated_ingredient_list
   end
+
+  def self.translate_ingredient(ingredient)
+    translation = DeepL.translate "#{ingredient}", "JA", "EN", context: "This Japanese food product contains the following ingredient:"
+    return translation.text
+  end
 end
