@@ -17,7 +17,7 @@ class Food < ApplicationRecord
   def translate
     require "./app/services/Translator.rb"
 
-    translated_ingredient_list = Translator.translation(self.ingredient_list)
+    translated_ingredient_list = DeepTranslator.translate_ingredients(self.ingredient_list)
     self.ingredient_list = translated_ingredient_list
     save
   end
