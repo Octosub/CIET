@@ -52,7 +52,7 @@ class FoodsController < ApplicationController
   end
 
   def vegan_classification
-    @gpt_response = @food.vegan_api
+    @gpt_response = Gpt.classify_food_ingredient_list(@food)
     @non_vegan_flags = @gpt_response["false-flags"]
     @can_be_vegan_flags = @gpt_response["can-be-flags"]
     @true_vegan_flags = @gpt_response["true-flags"]
