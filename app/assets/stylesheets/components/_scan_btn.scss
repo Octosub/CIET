@@ -4,14 +4,42 @@
   position: absolute;
   bottom: 5%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -80%);
 }
 
 .scan-btn-container {
+  position: absolute;
+  width: 100%;
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  align-items: center;
+}
+
+.scan-btn-plus {
+  height: 300px;
+  width: 300px;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-49%, -86%);
+}
+
+.scan-btn-rotate {
+  height: 300px;
+  width: 300px;
   position: relative;
+}
+
+.scan-btn-plus-rotate {
+  height: 300px;
+  width: 300px;
+  position: relative;
+  bottom: 320px;
+}
+
+.scan-btn-container {
+  justify-content: center;
+  flex-direction: column;
 }
 
 .scan-tag {

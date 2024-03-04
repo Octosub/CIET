@@ -20,7 +20,6 @@ class FoodsController < ApplicationController
   def create
     @food = Food.new(food_params)
     @food.user = current_user
-
     if @food.save
       @food.extract_ingredients
       @food.translate
