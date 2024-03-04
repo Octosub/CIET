@@ -24,7 +24,7 @@ class FoodsController < ApplicationController
     if @food.save
       @food.extract_ingredients
       @food.translate
-      @food.vegan = @food.vegan_boolean
+      @food.vegan_boolean
       @food.save
       puts "save successfull!"
       redirect_to food_path(@food)

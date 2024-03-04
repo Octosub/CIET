@@ -34,29 +34,32 @@ class Food < ApplicationRecord
 
   def vegan_boolean
     gpt_response = vegan_api
-    gpt_response["vegan?"]
+    if !gpt_response["false-flags"].empty?
+      self.vegan = "false"
+    elsif !gpt_response["can-be-flags"].empty?
+      self.vegan = "can-be"
+    else
+      self.vegan = "true"
+    end
   end
 
   def vegan_api
     preference = "vegan"
     prompt = <<~PROMPT
-    "Classify the following list of ingredients into #{preference}, non-#{preference}, or can-be-#{preference} categories as accurately as possible. Please separate each ingredient with commas. Ignore words that do not make sense in an ingredients list. Here's an example: "Ingredient1, Ingredient2, Ingredient3." Respond as accurately as possible with one output for all products in the following format:
+    "Classify the following list of ingredients into #{preference}, non-#{preference}, or can-be-#{preference} categories as accurately as possible: #{self.ingredient_list.gsub("&#39;", "")}
+    Here's an example: "Ingredient1, Ingredient2, Ingredient3." Seperate or group the ingredients in a way that makes sense on an ingredients label. Ignore words that do not make sense on an ingredients label. Respond in one output for all products in the following format:
       {
-        "#{preference}?": "false",  // always if at least one ingredient is non-#{preference}
-        "#{preference}?": "can-be",  // only if no ingredient is non-#{preference}, with at least one can-be-#{preference} ingredient
-        "#{preference}?": "true",  // only if all ingredients are #{preference}
-        "false-flags": ["non-#{preference} ingredient1", "non-#{preference} ingredient2", ...],  // list of all but only non-#{preference} ingredients
-        "can-be-flags": ["can-be ingredient1", "can-be ingredient2", ...],  // list of ingredients that can be #{preference}, depending on they way they are produced
-        "true-flags": ["#{preference} ingredient1", "#{preference} ingredient2", ...]  // list of all #{preference} ingredients
-      }
-    Ingredients: #{self.ingredient_list.gsub("&#39;", "")}"
+        "false-flags": ["non-#{preference} ingredient1", "non-#{preference} ingredient2", ...],  // list of all and only non-#{preference} ingredients
+        "true-flags": ["#{preference} ingredient1", "#{preference} ingredient2", ...]  // list of only but all #{preference} ingredients
+        "can-be-flags": ["can-be-#{preference} ingredient1", "can-be-#{preference} ingredient2", ...],  // list of ingredients that not clearly #{preference} or non-#{preference}
+      }"
     PROMPT
     client = OpenAI::Client.new
-    chaptgpt_response = client.chat(parameters: {
+    chatgpt_response = client.chat(parameters: {
     model: "gpt-3.5-turbo",
     messages: [{ role: "user", content: prompt}],
     temperature: 0.0
     })
-    JSON.parse(chaptgpt_response["choices"][0]["message"]["content"])
+    JSON.parse(chatgpt_response["choices"][0]["message"]["content"].gsub("```json\n", "").gsub("\n```", ""))
   end
 end

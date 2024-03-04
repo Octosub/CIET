@@ -16,12 +16,13 @@
     <% end %>
   </div>
 <% end %>
+<%= @food.cl %>
 <div class="pictures-container" data-controller="phototoggler">
   <% if @food.photos[1].present? %>
     <% if @food.vegan == "can-be" %>
       <%= cl_image_tag @food.photos[1].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "front", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image yellow-border-image" %>
       <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image yellow-border-image d-none" %>
-    <% elsif @food.vegan %>
+    <% elsif @food.vegan == "true" %>
       <%= cl_image_tag @food.photos[1].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "front", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image green-border-image" %>
       <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image green-border-image d-none" %>
     <% else %>
@@ -46,7 +47,7 @@
 </div>
 <% if @food.vegan == "can-be" %>
   <h2>Your scanned Item can be vegan</h2>
-<% elsif @food.vegan == "true" %>
+<% elsif @food.vegan == true %>
   <h2>Your scanned Item is vegan</h2>
 <% else %>
   <h2>Your scanned Item is not vegan</h2>
