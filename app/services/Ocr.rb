@@ -57,7 +57,6 @@ def cleanup(text)
   text[-1] = ""
   text = text.split(",")
   text = text.uniq
-  raise
   text = text.join(", ")
   return text
 end
