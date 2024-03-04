@@ -32,4 +32,42 @@ class Food < ApplicationRecord
     save
   end
 
+  def vegan_boolean
+    ingredients = vegan_api
+    ingredients["isVeganSafe"]
+  end
+
+  # def true_vegan_flags
+  # end
+
+  # def can_be_vegan_flags
+  # end
+
+  # def non_vegan_flags
+  #   ingredients = vegan_api
+  #   if self.ingredient_list.split(',').length > 1
+  #     return ingredients["isVeganResult"]["nonvegan"]
+  #   else
+  #     return []
+  #   end
+  # end
+
+  # def vegetarian_boolean
+  # end
+
+  # def true_vegetarian_flags
+  # end
+
+  # def can_be_vegetarian_flags
+  # end
+
+  # def non_vegetarian_flags
+  # end
+
+  def vegan_api
+    ingredients = self.ingredient_list.gsub("&#39;", "")
+    url = "https://is-vegan.netlify.app/.netlify/functions/api?ingredients=#{I18n.transliterate(ingredients)}"
+    ingredients_serialized = HTTParty.get(url).body
+    JSON.parse(ingredients_serialized)
+  end
 end

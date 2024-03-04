@@ -22,7 +22,6 @@ private
 
 def cleanup(text)
   text = text.delete("\n")
-  text = text.delete("\n")
   text = text.gsub(/(.*)?(品名:.*)?\s?(原材料名:?)\s?(油揚げめん)?/, "")
   text = text.gsub(/(pH調整剤)/, "")
   text = text.gsub(/((一部に).*含む\))?(内容量.*)?/, "")
