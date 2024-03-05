@@ -51,33 +51,37 @@ class FoodsController < ApplicationController
   end
 
   def classify_ingredients_individually
-    # current_user.preferences.each do |preference|
-    @true_vegan_flags = []
-    @can_be_vegan_flags = []
-    @false_vegan_flags = []
-    @food.ingredient_list.split(", ").each do |ingredient|
-      ing = Ingredient.find_by(name: ingredient.strip)
-      if !ing.nil?
-        if ing.vegan == "true"
-          @true_vegan_flags << ing
-        elsif ing.vegan == "false"
-          @false_vegan_flags << ing
+    @preferences = current_user.preferences.split(", ")
+    @preferences.each do |preference|
+      preference = [
+        [], [], []
+      ]
+      @food.ingredient_list.split(", ").each do |ingredient|
+        ing = Ingredient.find_by(name: ingredient.strip)
+        if !ing.nil?
+          if ing.check(preference) == "true"
+            preference[0] << ing
+          elsif ing.check(preference) == "false"
+            preference[1] << ing
+          else
+            preference[2] << ing
+          end
         else
-          @can_be_vegan_flags << ing
+          preference[2] << ingredient
         end
-      else
-        @can_be_vegan_flags << ingredient
       end
     end
   end
 
   def classify_categories
-    if !@false_vegan_flags.nil?
-      @food.vegan = "false"
-    elsif !@can_be_vegan_flags.nil? && @non_vegan_flags.nil?
-      @food.vegan = "can-be"
-    else
-      @food.vegan = "true"
+    @preferences.each do |preference|
+      if !preference[1].nil?
+        @food.update_flag(preference, "false")
+      elsif !preference[2].nil? && preference[1].nil?
+        @food.update_flag(preference, "can-be")
+      else
+        @food.update_flag(preference, "true")
+      end
     end
   end
 end
