@@ -1,0 +1,20 @@
+<div class="vegan-food-history-item">
+  <%= link_to food_path(food), class: "text-decoration-none food-card-container" do %>
+    <% if favorites.find_by(food_id: food.id) %>
+      <%= link_to favorite_path(favorites.where("food_id=#{food.id}").ids), data: { turbo_method: :delete } do %>
+        <i class="fa-solid fa-heart" style="color: #ff0000;"></i>
+      <% end %>
+    <% else %>
+      <%= link_to food_favorites_path(food), data: { turbo_method: :post } do %>
+        <i class="fa-regular fa-heart"></i>
+      <% end %>
+    <% end %>
+    <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fill, class:'border-green' %>
+    <div class="vegan-item">
+      <p>
+        <i class="fa-solid fa-seedling" style="color: #ffffff;"></i>
+        <%= food.name.present? ? food.name : "Item Nr.#{food.id}" %>
+      </p>
+    </div>
+  <% end %>
+</div>
