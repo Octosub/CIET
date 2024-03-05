@@ -48,7 +48,7 @@ class FoodsController < ApplicationController
   private
 
   def food_params
-    params.require(:food).permit(:name, :ingredient_list, :vegitarian, :pescetarian, :dairy_free, :peanut_free, :vegan, photos: [])
+    params.require(:food).permit(:name, :ingredient_list, :vegetarian, :pescetarian, :dairy_free, :peanut_free, :vegan, photos: [])
   end
 
   def classify_ingredients_individually
