@@ -98,7 +98,7 @@
           <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
         </div>
         <div class="d-none extended-infos" data-extended-infos-target="info">
-          <p>Sorry, couldn't find that</p>
+          <p>Sorry, we couldn't find that</p>
           <p><strong>Here is what we think it is:</strong> <%= Gpt.describe_unknown_ingredient(translation) %></p>
           <div class="extended-infos-grid">
             <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient}", target: '_blank', class: "btn btn-primary" %>
