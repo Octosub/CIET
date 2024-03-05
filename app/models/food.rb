@@ -51,5 +51,24 @@ class Food < ApplicationRecord
       end
     end
   end
-  
+
+  def update_flag(preference, flag)
+    if preference == "vegan"
+      self.vegan = flag
+      self.save
+    elsif preference == "vegitarian"
+      self.vegitarian = flag
+      self.save
+    elsif preference == "pescitarian"
+      self.pescitarian = flag
+      self.save
+    elsif preference == "dairy-free"
+      self.dairy_free = flag
+      self.save
+    else
+      self.peanut_free = flag
+      self.save
+    end
+  end
+
 end
