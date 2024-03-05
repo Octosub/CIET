@@ -54,3 +54,25 @@
     opacity: 1;
   }
 }
+
+.bar-container {
+  display: flex;
+}
+
+.bar-item {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.bar-item.active {
+  border-bottom: 2px solid blue; /* Change color as needed */
+}
+
+.content-container {
+  margin-top: 20px;
+}
+
+.tab-content.hidden {
+  display: none;
+}
