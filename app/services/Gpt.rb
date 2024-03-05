@@ -73,6 +73,19 @@ class Gpt
     ingredient.save
   end
 
+  def self.describe_unknown_ingredient(ingredient)
+    prompt = <<~PROMPT
+    "Describe #{ingredient} in 1 sentence, how it is produced in 1 sentence whether that makes it #{All_PREFERENCES} in 1 short sentence."
+    PROMPT
+    client = OpenAI::Client.new
+    chatgpt_response = client.chat(parameters: {
+    model: "gpt-3.5-turbo",
+    messages: [{ role: "user", content: prompt}],
+    temperature: 0.0
+    })
+    chatgpt_response["choices"][0]["message"]["content"]
+  end
+
   def self.classify_food_ingredient_list(food)
     # just here so it doesnt break
     preference = "vegan"

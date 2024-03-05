@@ -22,7 +22,6 @@ class FoodsController < ApplicationController
     @food.user = current_user
     if @food.save
       @food.extract_ingredients
-      # @food.translate
       @food.vegan_boolean
       @food.save
       puts "save successfull!"
