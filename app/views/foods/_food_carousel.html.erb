@@ -4,9 +4,9 @@
       <% if food.vegan == "true" %>
         <div class="vegan-food-history-item">
           <%= link_to food_path(food), class: "text-decoration-none food-card-container" do %>
-            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fill, class:'border-green' %>
+            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fit, class:'border-green' %>
             <div class="vegan-item">
-              <p>
+              <p class="m-0">
                 <i class="fa-solid fa-seedling" style="color: #ffffff;"></i>
                 <%= food.name.present? ? food.name : "Item Nr.#{food.id}" %>
               </p>
@@ -25,10 +25,10 @@
       <% else %>
         <div class="non-vegan-food-history-item">
           <%= link_to food_path(food), class: "text-decoration-none food-card-container" do %>
-            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fill, class:'border-red' %>
+            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fit, class:'border-red' %>
             <div class="non-vegan-item">
-              <p>
-                <i class="fa-solid fa-xmark liked-heart" style="color: #ffffff;"></i>
+              <p class="m-0">
+                <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
                 <%= food.name.present? ? food.name : "Item Nr.#{food.id}" %>
               </p>
             </div>
