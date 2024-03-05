@@ -29,8 +29,8 @@
   word-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 3px;
-}
+  margin: 5px 0px 3px 5px;
+  }
 
 .toggler {
   width: 35px;
@@ -39,13 +39,22 @@
 }
 
 .extended-infos {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5px;
   overflow: hidden;
   border-top: #333 1px solid;
   padding: 10px 5px 5px 5px;
   margin-top: 5px;
+}
+
+.extended-infos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.extended-infos-grid-unknown {
+  @extend .extended-infos-grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .rotated-element {

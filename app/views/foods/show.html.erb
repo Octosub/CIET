@@ -47,7 +47,7 @@
   <% end %>
 </div>
 <% if @food.vegan == "can-be" %>
-  <h2>Your scanned Item can be vegan</h2>
+  <h2>Your scanned Item might not be vegan</h2>
 <% elsif @food.vegan == true %>
   <h2>Your scanned Item is vegan</h2>
 <% else %>
@@ -63,8 +63,11 @@
           <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
         </div>
         <div class="d-none extended-infos" data-extended-infos-target="info">
-          <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient}", target: '_blank', class: "btn btn-primary" %>
-          <%= link_to "🌱 Is Vegan", "", class: "btn btn-primary" %>
+          <p><strong>Description: </strong><%= ingredient.english_description %></p>
+          <div class="extended-infos-grid">
+            <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient.english_name}", target: '_blank', class: "btn btn-primary" %>
+            <%= link_to "Report", "", class: "btn btn-primary" %>
+          </div>
         </div>
       </div>
     <% end %>
@@ -73,16 +76,34 @@
     <% @can_be_vegan_flags.each do |ingredient| %>
       <div class="wide-bar-card yellow-background" data-controller="extended-infos">
         <div class="toggle-grid">
-          <% if ingredient.respond_to?(:english_name) %>
-            <p class="text-wrap"><strong><%= ingredient.english_name.capitalize %></strong> can be vegan</p>
-          <% else %>
-            <p class="text-wrap"><strong><%= ingredient %></strong> cannot be found </p>
-          <% end %>
+          <p class="text-wrap"><strong><%= ingredient.english_name.capitalize %></strong> might not be vegan</p>
           <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
         </div>
         <div class="d-none extended-infos" data-extended-infos-target="info">
-          <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient}", target: '_blank', class: "btn btn-primary" %>
-          <%= link_to "🌱 Is Vegan", "", class: "btn btn-primary" %>
+          <p><strong>Description: </strong><%= ingredient.english_description %></p>
+          <div class="extended-infos-grid">
+            <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient.english_name}", target: '_blank', class: "btn btn-primary" %>
+            <%= link_to "Report", "", class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <% if @not_found_flags.present? %>
+    <% @not_found_flags.each do |ingredient| %>
+      <% translation = DeepL.translate ingredient, "JA", "EN" %>
+      <div class="wide-bar-card gray-background" data-controller="extended-infos">
+        <div class="toggle-grid">
+          <p class="text-wrap"><strong><%= translation %></strong> (<%= ingredient %>) was not found</p>
+          <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
+        </div>
+        <div class="d-none extended-infos" data-extended-infos-target="info">
+          <p>Sorry, couldn't find that</p>
+          <p><strong>Here is what we think it is:</strong> <%= Gpt.describe_unknown_ingredient(translation) %></p>
+          <div class="extended-infos-grid">
+            <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient}", target: '_blank', class: "btn btn-primary" %>
+            <%= link_to "Report", "", class: "btn btn-primary" %>
+          </div>
         </div>
       </div>
     <% end %>
@@ -95,8 +116,11 @@
           <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
         </div>
         <div class="d-none extended-infos" data-extended-infos-target="info">
-          <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient}", target: '_blank', class: "btn btn-primary" %>
-          <%= link_to "🛑 Not Vegan", "", class: "btn btn-primary" %>
+          <p><strong>Description: </strong><%= ingredient.english_description %></p>
+          <div class="extended-infos-grid">
+            <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient.english_name}", target: '_blank', class: "btn btn-primary" %>
+            <%= link_to "Report", "", class: "btn btn-primary" %>
+          </div>
         </div>
       </div>
     <% end %>

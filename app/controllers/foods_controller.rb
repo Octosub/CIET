@@ -22,7 +22,6 @@ class FoodsController < ApplicationController
     @food.user = current_user
     if @food.save
       @food.extract_ingredients
-      # @food.translate
       @food.vegan_boolean
       @food.save
       puts "save successfull!"
@@ -55,6 +54,7 @@ class FoodsController < ApplicationController
     @true_vegan_flags = []
     @can_be_vegan_flags = []
     @false_vegan_flags = []
+    @not_found_flags = []
     @food.ingredient_list.split(", ").each do |ingredient|
       ing = Ingredient.find_by(name: ingredient.strip)
       if !ing.nil?
@@ -66,7 +66,7 @@ class FoodsController < ApplicationController
           @can_be_vegan_flags << ing
         end
       else
-        @can_be_vegan_flags << ingredient
+        @not_found_flags << ingredient
       end
     end
   end
@@ -74,7 +74,7 @@ class FoodsController < ApplicationController
   def classify_categories
     if !@false_vegan_flags.nil?
       @food.vegan = "false"
-    elsif !@can_be_vegan_flags.nil? && @non_vegan_flags.nil?
+    elsif (!@can_be_vegan_flags.nil? || !@not_found_flags.nil?) && @non_vegan_flags.nil?
       @food.vegan = "can-be"
     else
       @food.vegan = "true"
