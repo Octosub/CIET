@@ -11,6 +11,7 @@ class FoodsController < ApplicationController
   def show
     @food = Food.find(params[:id])
     classify_ingredients_individually
+    classify_categories
   end
 
   def new
@@ -57,14 +58,27 @@ class FoodsController < ApplicationController
     @false_vegan_flags = []
     @food.ingredient_list.split(", ").each do |ingredient|
       ing = Ingredient.find_by(name: ingredient.strip)
-      if ing.vegan == "true"
-        @true_vegan_flags << ing
-      elsif ing.vegan == "false"
-        @false_vegan_flags << ing
+      if !ing.nil?
+        if ing.vegan == "true"
+          @true_vegan_flags << ing
+        elsif ing.vegan == "false"
+          @false_vegan_flags << ing
+        else
+          @can_be_vegan_flags << ing
+        end
       else
-        @can_be_vegan_flags << ing
+        @can_be_vegan_flags << ingredient
       end
     end
+  end
 
+  def classify_categories
+    if !@false_vegan_flags.nil?
+      @food.vegan = "false"
+    elsif !@can_be_vegan_flags.nil? && @non_vegan_flags.nil?
+      @food.vegan = "can-be"
+    else
+      @food.vegan = "true"
+    end
   end
 end
