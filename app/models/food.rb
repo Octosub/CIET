@@ -35,4 +35,21 @@ class Food < ApplicationRecord
     end
     self.save
   end
+
+  def classify_ingredients_individually
+    @true_vegan_flags = []
+    @can_be_vegan_flags = []
+    @false_vegan_flags = []
+    self.ingredient_list.split(", ").each do |ingredient|
+      ing = Ingredient.find_by(english_name: ingredient)
+      if ing.vegan == "true"
+        @true_vegan_flags << ing
+      elsif ing.vegan == "false"
+        @false_vegan_flags << ing
+      else
+        @can_be_vegan_flags << ing
+      end
+    end
+  end
+  
 end
