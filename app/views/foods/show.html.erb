@@ -46,17 +46,35 @@
     <% end %>
   <% end %>
 </div>
-<% if @food.vegan == "can-be" %>
-  <h2>Your scanned Item might not be vegan</h2>
-<% elsif @food.vegan == true %>
-  <h2>Your scanned Item is vegan</h2>
+<% if @pref_flags.include?("false") %>
+  <h2>Your scanned Item is not
+    <% @pref_arr.each do |preference| %>
+      <% if @food.check(preference) == "false" %>
+        <%= "#{preference} " %>
+      <% end %>
+    <% end %>
+  </h2>
+<% elsif @pref_flags.include?("can-be") %>
+  <h2>Your scanned Item might not be
+    <% @pref_arr.each do |preference| %>
+      <% if @food.check(preference) == "can-be" %>
+        <%= "#{preference} " %>
+      <% end %>
+    <% end %>
+  </h2>
 <% else %>
-  <h2>Your scanned Item is not vegan</h2>
+  <h2>Your scanned Item is not
+    <% @pref_arr.each do |preference| %>
+      <% if @food.check(preference) == "true" %>
+        <%= "#{preference} " %>
+      <% end %>
+    <% end %>
+  </h2>
 <% end %>
 <div class="bar-container">
   <h2>All Ingredients</h2>
-  <% if @false_vegan_flags.present? %>
-    <% @false_vegan_flags.each do |ingredient| %>
+  <% if @preferences[0][1].present? %>
+    <% @preferences[0][1].each do |ingredient| %>
       <div class="wide-bar-card red-background" data-controller="extended-infos">
         <div class="toggle-grid">
           <p class="text-wrap"><strong><%= ingredient.english_name.capitalize %></strong> is not vegan</p>
@@ -72,8 +90,8 @@
       </div>
     <% end %>
   <% end %>
-  <% if @can_be_vegan_flags.present? %>
-    <% @can_be_vegan_flags.each do |ingredient| %>
+  <% if @preferences[0][2].present? %>
+    <% @preferences[0][2].each do |ingredient| %>
       <div class="wide-bar-card yellow-background" data-controller="extended-infos">
         <div class="toggle-grid">
           <p class="text-wrap"><strong><%= ingredient.english_name.capitalize %></strong> might not be vegan</p>
@@ -89,8 +107,8 @@
       </div>
     <% end %>
   <% end %>
-  <% if @not_found_flags.present? %>
-    <% @not_found_flags.each do |ingredient| %>
+  <% if @preferences[0][3].present? %>
+    <% @preferences[0][3].each do |ingredient| %>
       <% translation = DeepL.translate ingredient, "JA", "EN" %>
       <div class="wide-bar-card gray-background" data-controller="extended-infos">
         <div class="toggle-grid">
@@ -108,8 +126,8 @@
       </div>
     <% end %>
   <% end %>
-  <% if @true_vegan_flags.present? %>
-    <% @true_vegan_flags.each do |ingredient| %>
+  <% if @preferences[0][0].present? %>
+    <% @preferences[0][0].each do |ingredient| %>
       <div class="wide-bar-card green-background" data-controller="extended-infos">
         <div class="toggle-grid">
           <p class="text-wrap"><strong><%= ingredient.english_name.capitalize %></strong> is vegan</p>

@@ -9,8 +9,10 @@ class FoodsController < ApplicationController
 
   def show
     @food = Food.find(params[:id])
+    @pref_arr = current_user.preferences.split(", ")
     classify_ingredients_individually
     classify_categories
+    @pref_flags = pref_flags
   end
 
   def new
@@ -46,41 +48,52 @@ class FoodsController < ApplicationController
   private
 
   def food_params
-    params.require(:food).permit(:name, :ingredient_list, :vegan, photos: [])
+    params.require(:food).permit(:name, :ingredient_list, :vegitarian, :pescetarian, :dairy_free, :peanut_free, :vegan, photos: [])
   end
 
   def classify_ingredients_individually
-    @preferences = current_user.preferences.split(", ")
-    @preferences.each do |preference|
-      preference = [
-        [], [], []
+    @preferences = []
+    @current_user.preferences.split(", ").each do |preference|
+      arr = [
+        [], [], [], []
       ]
       @food.ingredient_list.split(", ").each do |ingredient|
         ing = Ingredient.find_by(name: ingredient.strip)
         if !ing.nil?
           if ing.check(preference) == "true"
-            preference[0] << ing
+            arr[0] << ing
           elsif ing.check(preference) == "false"
-            preference[1] << ing
+            arr[1] << ing
           else
-            preference[2] << ing
+            arr[2] << ing
           end
         else
-          preference[2] << ingredient
+          arr[3] << ingredient
         end
+        @preferences << arr
       end
     end
   end
 
   def classify_categories
-    @preferences.each do |preference|
-      if !preference[1].nil?
-        @food.update_flag(preference, "false")
-      elsif !preference[2].nil? && preference[1].nil?
-        @food.update_flag(preference, "can-be")
-      else
-        @food.update_flag(preference, "true")
+    current_user.preferences.split(", ").each do |preference|
+      @preferences.each do |arr|
+        if !arr[1].nil?
+          @food.update_flag(preference, "false")
+        elsif !arr[2].nil? && preference[1].nil?
+          @food.update_flag(preference, "can-be")
+        else
+          @food.update_flag(preference, "true")
+        end
       end
     end
+  end
+
+  def pref_flags
+    arr = []
+    @pref_arr.each do |pref|
+      arr << @food.check(pref)
+    end
+    return arr
   end
 end
