@@ -1,14 +1,14 @@
 <div class="landing-page-container" data-controller="autosubmit" >
   <div class="scan-btn-container" data-autosubmit-target="hide">
-    <%= image_tag("logo_without_plus.png", class: 'scan-btn') %>
-    <%= image_tag("center_plus_icon.png", class: 'scan-btn-plus') %>
+    <%= image_tag("ciet_logo.png", class: 'scan-btn', id: 'logo') %>
+    <%= image_tag("logo_without_plus.png", class: '', id: 'logo_2')%>
+    <%= image_tag("plus_icon.png", class: 'scan-btn-plus', id: 'logo_3') %>
     <%= simple_form_for @food, method: "post", data: {'autosubmit-target': "form"} do |f| %>
       <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, data: {action: "input->autosubmit#submitForm"}, class: "image-form" } %>
     <% end %>
   </div>
-
-  <div class="scan-btn-container-rotate d-none" data-autosubmit-target="show">
+  <div class="scan-btn-container-rotate justify-content-center w-100 position-relative d-none" data-autosubmit-target="show">
     <%= image_tag("logo_without_plus.png", class: 'scan-btn-rotate') %>
-    <%= image_tag("center_plus_icon.png", class:'scan-btn-plus-rotate rotate') %>
+    <%= image_tag("plus_icon.png", class:'scan-btn-plus-rotate rotate') %>
   </div>
 </div>
