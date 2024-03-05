@@ -1,9 +1,17 @@
+.index-container {
+  padding-bottom: 40px;
+}
+
+.index-container h2 {
+  margin-top: 10%;
+  margin-bottom: 30px;
+}
+
 .cards-container {
   width: 100vw;
   background-color: $beige;
   margin: 0rem;
   overflow: scroll;
-  margin-top: 10%;
 }
 
 #image-track {
