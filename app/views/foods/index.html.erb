@@ -5,11 +5,9 @@
   </div>
   <div class="content-container">
     <div class="tab-content" id="favorites-content">
-      <h2>Favorites</h2>
       <%= render 'favorites_carousel', foods: current_user.fav_foods, favorites: current_user.favorites %>
     </div>
     <div class="tab-content hidden" id="history-content">
-      <h2>History</h2>
       <%= render 'food_carousel', foods: current_user.foods, favorites: current_user.favorites %>
     </div>
   </div>
