@@ -10,7 +10,7 @@ class FoodsController < ApplicationController
 
   def show
     @food = Food.find(params[:id])
-    vegan_classification
+    classify_ingredients_individually
   end
 
   def new
@@ -22,7 +22,7 @@ class FoodsController < ApplicationController
     @food.user = current_user
     if @food.save
       @food.extract_ingredients
-      @food.translate
+      # @food.translate
       @food.vegan_boolean
       @food.save
       puts "save successfull!"
@@ -50,11 +50,21 @@ class FoodsController < ApplicationController
     params.require(:food).permit(:name, :ingredient_list, :vegan, photos: [])
   end
 
-  def vegan_classification
-    # needs change, just here so it doesnt break
-    @gpt_response = Gpt.classify_food_ingredient_list(@food)
-    @non_vegan_flags = @gpt_response["false-flags"]
-    @can_be_vegan_flags = @gpt_response["can-be-flags"]
-    @true_vegan_flags = @gpt_response["true-flags"]
+  def classify_ingredients_individually
+    # current_user.preferences.each do |preference|
+    @true_vegan_flags = []
+    @can_be_vegan_flags = []
+    @false_vegan_flags = []
+    @food.ingredient_list.split(", ").each do |ingredient|
+      ing = Ingredient.find_by(name: ingredient.strip)
+      if ing.vegan == "true"
+        @true_vegan_flags << ing
+      elsif ing.vegan == "false"
+        @false_vegan_flags << ing
+      else
+        @can_be_vegan_flags << ing
+      end
+    end
+
   end
 end
