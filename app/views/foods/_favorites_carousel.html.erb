@@ -1,7 +1,7 @@
 <div class="cards-container">
   <div id="image-track">
     <% foods.each do |food| %>
-      <% if food.vegan %>
+      <% if food.vegan == "true" %>
         <div class="vegan-food-history-item">
           <%= link_to food_path(food), class: "text-decoration-none food-card-container" do %>
             <div class="vegan-item">
@@ -11,7 +11,7 @@
               </p>
             </div>
             <%= link_to favorite_path(favorites.where("food_id=#{food.id}").ids), data: { turbo_method: :delete } do %>
-              <i class="fa-solid fa-heart" style="color: #ff0000;"></i>
+              <i class="fa-solid fa-heart liked-heart" style="color: #ff0000;"></i>
             <% end %>
             <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fill, class:'border-green' %>
           <% end %>
@@ -27,7 +27,7 @@
               </p>
             </div>
             <%= link_to favorite_path(favorites.where("food_id=#{food.id}").ids), data: { turbo_method: :delete } do %>
-              <i class="fa-solid fa-heart" style="color: #ff0000;"></i>
+              <i class="fa-solid fa-heart liked-heart" style="color: #ff0000;"></i>
             <% end %>
           <% end %>
         </div>

@@ -1,6 +1,16 @@
 <div class="index-container">
-  <h2>Favorites</h2>
-  <%= render 'favorites_carousel', foods: current_user.fav_foods, favorites: current_user.favorites %>
-  <h2>History</h2>
-  <%= render 'food_carousel', foods: current_user.foods, favorites: current_user.favorites %>
+  <div class="bar-container">
+    <div class="bar-item active" id="favorites-tab">Favorites</div>
+    <div class="bar-item" id="history-tab">History</div>
+  </div>
+  <div class="content-container">
+    <div class="tab-content" id="favorites-content">
+      <h2>Favorites</h2>
+      <%= render 'favorites_carousel', foods: current_user.fav_foods, favorites: current_user.favorites %>
+    </div>
+    <div class="tab-content hidden" id="history-content">
+      <h2>History</h2>
+      <%= render 'food_carousel', foods: current_user.foods, favorites: current_user.favorites %>
+    </div>
+  </div>
 </div>
