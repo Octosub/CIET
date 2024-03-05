@@ -1,31 +1,4 @@
-<div class="cards-container">
-  <div id="image-track">
-    <% @foods.each do |food| %>
-      <% if food.vegan %>
-        <div class="vegan-food-history-item">
-          <%= link_to food_path(food), class: "text-decoration-none food-card-container" do %>
-            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fill, class:'border-green' %>
-            <div class="vegan-item">
-              <p>
-                <i class="fa-solid fa-seedling" style="color: #ffffff;"></i>
-                <%= food.name.present? ? food.name : "Item Nr.#{food.id}" %>
-              </p>
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <div class="non-vegan-food-history-item">
-          <%= link_to food_path(food), class: "text-decoration-none food-card-container" do %>
-            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fill, class:'border-red' %>
-            <div class="non-vegan-item">
-              <p>
-                <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
-                <%= food.name.present? ? food.name : "Item Nr.#{food.id}" %>
-              </p>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+<h2>Favorites</h2>
+<%= render 'favorites_carousel', foods: current_user.fav_foods, favorites: current_user.favorites %>
+<h2>History</h2>
+<%= render 'food_carousel', foods: current_user.foods, favorites: current_user.favorites %>

@@ -1,5 +1,4 @@
 class FoodsController < ApplicationController
-
   require 'json'
   require "open-uri"
   require "i18n"

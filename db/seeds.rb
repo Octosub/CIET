@@ -1,5 +1,6 @@
 require "open-uri"
 
+Favorite.destroy_all
 Food.destroy_all
 User.destroy_all
 Ingredient.destroy_all
