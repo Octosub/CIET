@@ -13,6 +13,7 @@ export default class extends Controller {
   submitForm() {
     this.hideTarget.classList.toggle("d-none");
     this.showTarget.classList.remove("d-none");
+    this.showTarget.classList.add("d-flex");
     this.formTarget.submit();
   }
 
