@@ -2,6 +2,7 @@ require "open-uri"
 require "deepl"
 require "json"
 
+Favorite.destroy_all
 Ingredient.destroy_all
 Food.destroy_all
 
