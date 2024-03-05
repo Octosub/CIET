@@ -3,8 +3,8 @@ require "deepl"
 require "json"
 
 Favorite.destroy_all
-Ingredient.destroy_all
 Food.destroy_all
+Ingredient.destroy_all
 
 file = File.read('./ingredients.json')
 ingredients = JSON.parse(file)
