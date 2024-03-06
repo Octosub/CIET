@@ -2,17 +2,15 @@
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "centered-form" }) do |f| %>
   <%= f.error_notification %>
   <div class="form-inputs ninety-width-input">
+      <%= f.input :photo, as: :file,
+                  label: image_tag("profile_pic.png"),
+                  label_html: { class: "profile-pic d-flex justify-content-center" },
+                  input_html: { class: "input-bar" } %>
     <%= f.input :username, required: true, autofocus: true %>
     <%= f.input :email, required: true, autofocus: true %>
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
-    <%= f.input :photo, label: "Profile Picture", as: :file,
-                input_html: { class: "input-bar" } %>
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
     <div class="categories-toggle-container">
       <%= f.input :preferences,
         as: :check_boxes,
@@ -20,16 +18,21 @@
         collection_wrapper_class: 'category-wrapper',
         item_wrapper_class: 'category-item',
         input_html: {class: 'category-selector'},
-        collection: [[image_tag("food_icons/vegan.png").html_safe, "vegan"], [image_tag("food_icons/vegetarian.png"), "vegetarian"], [image_tag("food_icons/pescetarian.png"), "pescetarian"], [image_tag("food_icons/peanut-free.png"), "peanut-free"], [image_tag("food_icons/dairy-free.png"), "dairy-free"]],
+        collection: [[image_tag("food_icons/vegan.png").html_safe, "vegan"], [image_tag("food_icons/vegetarian.png").html_safe, "vegetarian"], [image_tag("food_icons/pescetarian.png").html_safe, "pescetarian"], [image_tag("food_icons/peanut-free.png").html_safe, "peanut-free"], [image_tag("food_icons/dairy-free.png").html_safe, "dairy-free"], [image_tag("food_icons/add.png").html_safe, ""]],
         checked: current_user.preferences.split(" ") & ["vegan", "vegetarian", "pescetarian", "peanut-free", "dairy-free"] if !current_user.preferences.nil? %>
     </div>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
     <%= f.input :current_password,
                 hint: "we need your current password to confirm your changes",
                 required: true,
                 input_html: { autocomplete: "current-password" } %>
+    <%= f.input :password,
+                label: "New Password",
+                hint: "leave it blank if you don't want to change it",
+                required: false,
+                input_html: { autocomplete: "new-password" } %>
+    <%= f.input :password_confirmation,
+                required: false,
+                input_html: { autocomplete: "new-password" } %>
   </div>
   <div class="form-actions">
     <%= f.button :submit, "Update" %>
