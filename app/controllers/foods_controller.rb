@@ -10,7 +10,7 @@ class FoodsController < ApplicationController
   def show
     @food = Food.find(params[:id])
     @ingredient_list = @food.ingredient_list.split(", ")
-    @pref_arr = current_user.preferences.split(", ")
+    @pref_arr = current_user.preferences.split(" ")
     classify_ingredients_individually
     classify_categories
     @pref_flags = pref_flags
