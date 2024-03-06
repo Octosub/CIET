@@ -57,13 +57,13 @@
   transform: translate(-50%, -50%);
   position: absolute;
   opacity: 0;
-  animation: cascadeText 1.8s forwards;
+  animation: cascadeText 0.8s ease-in 1.2s forwards;
 }
 
 @keyframes cascadeText {
   from {
     opacity: 0;
-    transform: translateY(-20px); /* Optional: Add vertical movement */
+    transform: translateY(-20px);
   }
   to {
     opacity: 1;
