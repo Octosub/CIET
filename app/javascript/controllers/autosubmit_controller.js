@@ -5,9 +5,6 @@ export default class extends Controller {
   static targets = [ "form", "hide", "show" ];
 
   connect() {
-    console.log("autosubmit connected");
-    console.log(this.formTarget, this.showTarget.innerHTML);
-
   }
 
   submitForm() {
