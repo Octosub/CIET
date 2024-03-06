@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   end
   resources :favorites, only: ['destroy']
 
+  get "/changepreferences", to: "pages#changepreferences", as: :changepreferences
+  patch "/changepreferences", to: "pages#updatepreferences", as: :update_preferences
+
   # resources :users, only: ['edit', 'update']
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
