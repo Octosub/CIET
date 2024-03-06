@@ -1,12 +1,12 @@
 <div class="cards-container">
   <div id="image-track">
     <% foods.each do |food| %>
-      <% if food.vegan %>
+      <% if food.vegan == "true" %>
         <div class="vegan-food-history-item">
           <%= link_to food_path(food), class: "text-decoration-none food-card-container" do %>
-            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fill, class:'border-green' %>
+            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fit, class:'border-green' %>
             <div class="vegan-item">
-              <p>
+              <p class="m-0">
                 <i class="fa-solid fa-seedling" style="color: #ffffff;"></i>
                 <%= food.name.present? ? food.name : "Item Nr.#{food.id}" %>
               </p>
@@ -17,7 +17,7 @@
               <% end %>
             <% else %>
               <%= link_to food_favorites_path(food), data: { turbo_method: :post } do %>
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-regular fa-heart unliked-heart"></i>
               <% end %>
             <% end %>
           <% end %>
@@ -25,20 +25,20 @@
       <% else %>
         <div class="non-vegan-food-history-item">
           <%= link_to food_path(food), class: "text-decoration-none food-card-container" do %>
-            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fill, class:'border-red' %>
+            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fit, class:'border-red' %>
             <div class="non-vegan-item">
-              <p>
+              <p class="m-0">
                 <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
                 <%= food.name.present? ? food.name : "Item Nr.#{food.id}" %>
               </p>
             </div>
             <% if favorites.find_by(food_id: food.id) %>
               <%= link_to favorite_path(favorites.where("food_id=#{food.id}").ids), data: { turbo_method: :delete } do %>
-                <i class="fa-solid fa-heart" style="color: #ff0000;"></i>
+                <i class="fa-solid fa-heart liked-heart" style="color: #ff0000;"></i>
               <% end %>
             <% else %>
               <%= link_to food_favorites_path(food), data: { turbo_method: :post } do %>
-                <i class="fa-regular fa-heart"></i>
+                <i class="fa-regular fa-heart unliked-heart"></i>
               <% end %>
             <% end %>
           <% end %>

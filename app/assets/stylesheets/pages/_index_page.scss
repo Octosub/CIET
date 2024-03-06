@@ -9,49 +9,44 @@
 
 .cards-container {
   width: 100vw;
-  background-color: $beige;
   margin: 0rem;
-  overflow: scroll;
 }
 
 #image-track {
   display: flex;
+  flex-direction: column;
 }
 
 #image-track .vegan-item {
   background-color: $dark-green;
-  height: 13%;
   color: white;
   font-size: 2rem;
-  display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 #image-track .non-vegan-item {
-  background-color: $orange;
-  height: 13%;
+  background-color: #D36135;
   color: white;
   font-size: 2rem;
-  display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#image-track:first-child {
-  margin-left: 6%;
+  text-align: center;
 }
 
 .vegan-food-history-item {
-  margin: 0px 10px;
   border: solid $dark-green 15px;
   border-radius: 20px 20px 10px 10px;
+  margin: 20px 25px;
+  height: 30vh;
 }
 
 .non-vegan-food-history-item {
-  margin: 0px 10px;
   border: solid $orange 15px;
   border-radius: 20px 20px 10px 10px;
+  margin: 20px 10px;
+  height: 30vh;
 }
 
 .food-history-item p {
@@ -61,8 +56,8 @@
 }
 
 #image-track img {
-  width: 80vmin;
-  height: 126vmin;
+  width: 100%;
+  height: 87%;
   object-fit: cover;
   object-position: center;
 }

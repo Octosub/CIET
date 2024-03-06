@@ -59,8 +59,8 @@ class Food < ApplicationRecord
     elsif preference == "vegitarian"
       self.vegitarian = flag
       self.save
-    elsif preference == "pescitarian"
-      self.pescitarian = flag
+    elsif preference == "pescetarian"
+      self.pescetarian = flag
       self.save
     elsif preference == "dairy-free"
       self.dairy_free = flag
@@ -68,6 +68,20 @@ class Food < ApplicationRecord
     else
       self.peanut_free = flag
       self.save
+    end
+  end
+
+  def check(preference)
+    if preference == "vegan"
+      return self.vegan
+    elsif preference == "vegetarian"
+      return self.vegetarian
+    elsif preference == "pescetarian"
+      return self.pescetarian
+    elsif preference == "dairy-free"
+      return self.dairy_free
+    else
+      return self.peanut_free
     end
   end
 
