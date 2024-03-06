@@ -91,38 +91,41 @@
   border: 1px solid #EAEAEA;
   border-radius: 4px;
   background-color: white;
+  opacity: 0.4;
+  // background-image: url('../../images/food_icons/vegan.png');
 }
 
 .category-selector:checked + label {
-  color: white !important;
+  // color: white !important;
+  opacity: 1.0 !important;
 }
 
 
-#snippet_category_ruby + label {
-  color: #FD1015;
-}
+// #user_preferences_vegan + label {
+//   color: #FD1015;
+// }
 
-#snippet_category_ruby:checked + label {
-  background-color: #FD1015;
-  border-color: #FD1015;
-}
-
-
-#snippet_category_javascript + label {
-  color: #FFC65A;
-}
-
-#snippet_category_javascript:checked + label {
-  background-color: #FFC65A;
-  border-color: #FFC65A;
-}
+// #user_preferences_vegan:checked + label {
+//   background-color: #FD1015;
+//   border-color: #FD1015;
+// }
 
 
-#snippet_category_css + label {
-  color: #62DDF5;
-}
+// #user_preferences_vegetarian + label {
+//   color: #FFC65A;
+// }
 
-#snippet_category_css:checked + label {
-  background-color: #62DDF5;
-  border-color: #62DDF5;
-}
+// #user_preferences_vegetarian:checked + label {
+//   background-color: #FFC65A;
+//   border-color: #FFC65A;
+// }
+
+
+// #user_preferences_pescetarian + label {
+//   color: #62DDF5;
+// }
+
+// #user_preferences_pescetarian:checked + label {
+//   background-color: #62DDF5;
+//   border-color: #62DDF5;
+// }
