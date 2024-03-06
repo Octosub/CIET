@@ -1,26 +1,38 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<h2>Edit <%= current_user.username %>'s Profile</h2>
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "centered-form" }) do |f| %>
   <%= f.error_notification %>
-  <div class="form-inputs">
+  <div class="form-inputs ninety-width-input">
+    <%= f.input :photo, as: :file,
+        label: current_user.photo.present? ? cl_image_tag(current_user.photo.key) : image_tag("profile_pic.png"),
+        label_html: { class: "profile-pic d-flex justify-content-center" },
+        input_html: { class: "input-bar d-none" } %>
     <%= f.input :username, required: true, autofocus: true %>
     <%= f.input :email, required: true, autofocus: true %>
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
-    <%= f.input :preferences, required: true, autofocus: true %>
-    <%= f.input :photo, as: :file,
-                input_html: { class: "input-bar" } %>
+    <div class="categories-toggle-container">
+      <%= f.input :preferences,
+        as: :check_boxes,
+        collection_wrapper_tag: 'div',
+        collection_wrapper_class: 'category-wrapper',
+        item_wrapper_class: 'category-item',
+        input_html: {class: 'category-selector'},
+        collection: [[image_tag("food_icons/vegan.png").html_safe, "vegan"], [image_tag("food_icons/vegetarian.png").html_safe, "vegetarian"], [image_tag("food_icons/pescetarian.png").html_safe, "pescetarian"], [image_tag("food_icons/peanut-free.png").html_safe, "peanut-free"], [image_tag("food_icons/dairy-free.png").html_safe, "dairy-free"], [image_tag("food_icons/add.png").html_safe, ""]],
+        checked: current_user.preferences.split(" ") & ["vegan", "vegetarian", "pescetarian", "peanut-free", "dairy-free"] if !current_user.preferences.nil? %>
+    </div>
+    <%= f.input :current_password,
+                hint: "we need your current password to confirm your changes",
+                required: true,
+                input_html: { autocomplete: "current-password" } %>
     <%= f.input :password,
+                label: "New Password",
                 hint: "leave it blank if you don't want to change it",
                 required: false,
                 input_html: { autocomplete: "new-password" } %>
     <%= f.input :password_confirmation,
                 required: false,
                 input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
   </div>
   <div class="form-actions">
     <%= f.button :submit, "Update" %>
