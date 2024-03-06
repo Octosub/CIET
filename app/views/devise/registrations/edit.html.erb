@@ -2,8 +2,6 @@
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "centered-form" }) do |f| %>
   <%= f.error_notification %>
   <div class="form-inputs ninety-width-input">
-    <%# if current_user.photo.present? %>
-    <%#= binding.pry %>
     <%= f.input :photo, as: :file,
         label: current_user.photo.present? ? cl_image_tag(current_user.photo.key) : image_tag("profile_pic.png"),
         label_html: { class: "profile-pic d-flex justify-content-center" },
