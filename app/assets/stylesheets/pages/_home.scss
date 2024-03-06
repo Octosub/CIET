@@ -1,7 +1,7 @@
 // Specific CSS for your home-page
 
 #logo {
-  animation: fade-out 500ms ease-in 1000ms forwards;
+  animation: fade-out 500ms ease-out 1000ms forwards;
   top: 50%;
   right: 50%;
   transform: translate(-50%, -50%);
@@ -11,7 +11,7 @@
 }
 
 #logo_2 {
-  animation: fade-in 500ms ease-in 1000ms forwards;
+  animation: fade-in 500ms ease-out 1000ms forwards;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -21,7 +21,7 @@
 }
 
 #logo_3 {
-  animation: fade-in 500ms ease-in 1000ms forwards;
+  animation: fade-in 500ms ease-out 1000ms forwards;
   top: 50%;
   left: 50%;
   transform: translate(-49%, -57%);
@@ -52,8 +52,22 @@
   font-size: 26px;
   font-weight: bold;
   color: #333;
-  top: 67%;
-  left: 50%;
+  top: 68%;
+  left: 50.6%;
   transform: translate(-50%, -50%);
   position: absolute;
+  opacity: 0;
+  animation: cascadeText 1s ease-in 1s forwards;
+}
+
+
+@keyframes cascadeText {
+  from {
+    opacity: 0;
+    transform: translateY();
+  }
+  to {
+    opacity: 1;
+    transform: translateY();
+  }
 }

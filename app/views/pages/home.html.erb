@@ -6,7 +6,9 @@
     <%= simple_form_for @food, method: "post", data: {'autosubmit-target': "form"} do |f| %>
       <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, data: {action: "input->autosubmit#submitForm"}, class: "image-form" } %>
     <% end %>
-    <div id="scan-text">SCAN</div>
+    <div id="scan-text">
+      <span>S</span><span>C</span><span>A</span><span>N</span>
+    </div>
   </div>
   <div class="scan-btn-container-rotate justify-content-center position-relative d-none" data-autosubmit-target="show">
     <%= image_tag("logo_without_plus.png", class: 'scan-btn-rotate') %>
