@@ -23,35 +23,6 @@ class Food < ApplicationRecord
     save
   end
 
-  def vegan_boolean
-    # needs change, just here so it doesnt break
-    gpt_response = Gpt.classify_food_ingredient_list(self)
-    if !gpt_response["false-flags"].empty?
-      self.vegan = "false"
-    elsif !gpt_response["can-be-flags"].empty?
-      self.vegan = "can-be"
-    else
-      self.vegan = "true"
-    end
-    self.save
-  end
-
-  def classify_ingredients_individually
-    @true_vegan_flags = []
-    @can_be_vegan_flags = []
-    @false_vegan_flags = []
-    self.ingredient_list.split(", ").each do |ingredient|
-      ing = Ingredient.find_by(english_name: ingredient)
-      if ing.vegan == "true"
-        @true_vegan_flags << ing
-      elsif ing.vegan == "false"
-        @false_vegan_flags << ing
-      else
-        @can_be_vegan_flags << ing
-      end
-    end
-  end
-
   def update_flag(preference, flag)
     if preference == "vegan"
       self.vegan = flag
