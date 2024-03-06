@@ -73,11 +73,17 @@
 <% end %>
 <div class="bar-container">
   <h2>All Ingredients</h2>
-  <% if @preferences[0][1].present? %>
-    <% @preferences[0][1].each do |ingredient| %>
+  <% if @preferences[1].present? %>
+    <% @preferences[1].each do |ingredient| %>
       <div class="wide-bar-card red-background" data-controller="extended-infos">
         <div class="toggle-grid">
-          <p class="text-wrap"><strong><%= ingredient.english_name.capitalize %></strong> is not vegan</p>
+          <p class="text-wrap"><strong><%= ingredient.english_name.capitalize %></strong> is not
+            <% @pref_arr.each do |preference| %>
+              <% if (ingredient.check(preference) == "false") %>
+                <%= image_tag("food_icons/#{preference}.png", class: "small-icon") %>
+              <% end %>
+            <% end %>
+          </p>
           <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
         </div>
         <div class="d-none extended-infos" data-extended-infos-target="info">
@@ -90,11 +96,17 @@
       </div>
     <% end %>
   <% end %>
-  <% if @preferences[0][2].present? %>
-    <% @preferences[0][2].each do |ingredient| %>
+  <% if @preferences[2].present? %>
+    <% @preferences[2].each do |ingredient| %>
       <div class="wide-bar-card yellow-background" data-controller="extended-infos">
         <div class="toggle-grid">
-          <p class="text-wrap"><strong><%= ingredient.english_name.capitalize %></strong> might not be vegan</p>
+          <p class="text-wrap"><strong><%= ingredient.english_name.capitalize %></strong> might not be
+            <% @pref_arr.each do |preference| %>
+              <% if (ingredient.check(preference) == "can-be") %>
+                <%= image_tag("food_icons/#{preference}.png", class: "small-icon") %>
+              <% end %>
+            <% end %>
+          </p>
           <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
         </div>
         <div class="d-none extended-infos" data-extended-infos-target="info">
@@ -107,8 +119,8 @@
       </div>
     <% end %>
   <% end %>
-  <% if @preferences[0][3].present? %>
-    <% @preferences[0][3].each do |ingredient| %>
+  <% if @preferences[3].present? %>
+    <% @preferences[3].each do |ingredient| %>
       <% translation = DeepL.translate ingredient, "JA", "EN" %>
       <div class="wide-bar-card gray-background" data-controller="extended-infos">
         <div class="toggle-grid">
@@ -126,11 +138,17 @@
       </div>
     <% end %>
   <% end %>
-  <% if @preferences[0][0].present? %>
-    <% @preferences[0][0].each do |ingredient| %>
+  <% if @preferences[0].present? %>
+    <% @preferences[0].each do |ingredient| %>
       <div class="wide-bar-card green-background" data-controller="extended-infos">
         <div class="toggle-grid">
-          <p class="text-wrap"><strong><%= ingredient.english_name.capitalize %></strong> is vegan</p>
+          <p class="text-wrap"><strong><%= ingredient.english_name.capitalize %></strong> is
+            <% @pref_arr.each do |preference| %>
+              <% if (ingredient.check(preference) == "true") %>
+                <%= image_tag("food_icons/#{preference}.png", class: "small-icon") %>
+              <% end %>
+            <% end %>
+          </p>
           <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
         </div>
         <div class="d-none extended-infos" data-extended-infos-target="info">
