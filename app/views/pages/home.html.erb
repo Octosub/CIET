@@ -1,4 +1,6 @@
-<h2>Check if <%= current_user.preferences %></h2>
+<% prefs_array = current_user.preferences.split(" ") %>
+<% prefs_string = prefs_array[0...-1].join(", ") + " and " + prefs_array[-1] %>
+<h2>Checks for <%= prefs_string %></h2>
 <div class="landing-page-container" data-controller="autosubmit" >
   <div class="scan-btn-container" data-autosubmit-target="hide">
     <%= image_tag("ciet_logo.png", class: 'scan-btn', id: 'logo') %>
