@@ -27,7 +27,6 @@ class FoodsController < ApplicationController
     @food.user = current_user
     if @food.save
       @food.extract_ingredients
-      puts "save successfull!"
       redirect_to food_path(@food)
     else
       flash[:error] = @food.errors.full_messages.join(", ")
