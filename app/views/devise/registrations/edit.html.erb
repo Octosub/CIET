@@ -18,7 +18,7 @@
         collection_wrapper_class: 'category-wrapper',
         item_wrapper_class: 'category-item',
         input_html: {class: 'category-selector'},
-        collection: [[image_tag("food_icons/vegan.png").html_safe, "vegan"], [image_tag("food_icons/vegetarian.png").html_safe, "vegetarian"], [image_tag("food_icons/pescetarian.png").html_safe, "pescetarian"], [image_tag("food_icons/peanut-free.png").html_safe, "peanut-free"], [image_tag("food_icons/dairy-free.png").html_safe, "dairy-free"], [image_tag("food_icons/add.png").html_safe, ""]],
+        collection: [[image_tag("food_icons/vegan-gray.png").html_safe, "vegan"], [image_tag("food_icons/vegetarian-gray.png").html_safe, "vegetarian"], [image_tag("food_icons/pescetarian-gray.png").html_safe, "pescetarian"], [image_tag("food_icons/peanut-free-gray.png").html_safe, "peanut-free"], [image_tag("food_icons/dairy-free-gray.png").html_safe, "dairy-free"], [image_tag("food_icons/add.png").html_safe, ""]],
         checked: current_user.preferences.split(" ") & ["vegan", "vegetarian", "pescetarian", "peanut-free", "dairy-free"] if !current_user.preferences.nil? %>
     </div>
     <%= f.input :current_password,
