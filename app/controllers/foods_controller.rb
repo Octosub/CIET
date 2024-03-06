@@ -52,39 +52,44 @@ class FoodsController < ApplicationController
   end
 
   def classify_ingredients_individually
-    @preferences = []
-    @current_user.preferences.split(", ").each do |preference|
-      arr = [
-        [], [], [], []
-      ]
+    # true, false, can-be, empty
+    @preferences = [[], [], [], []]
+    @pref_arr.each do |preference|
       @food.ingredient_list.split(", ").each do |ingredient|
         ing = Ingredient.find_by(name: ingredient.strip)
         if !ing.nil?
           if ing.check(preference) == "true"
-            arr[0] << ing
+            @preferences[0] << ing
           elsif ing.check(preference) == "false"
-            arr[1] << ing
+            @preferences[1] << ing
           else
-            arr[2] << ing
+            @preferences[2] << ing
           end
         else
-          arr[3] << ingredient
+          @preferences[3] << ingredient
         end
-        @preferences << arr
       end
     end
+    @preferences[0].uniq!
+    @preferences[1].uniq!
+    @preferences[2].uniq!
+    @preferences[3].uniq!
   end
 
   def classify_categories
-    current_user.preferences.split(", ").each do |preference|
-      @preferences.each do |arr|
-        if !arr[1].nil?
-          @food.update_flag(preference, "false")
-        elsif !arr[2].nil? && preference[1].nil?
-          @food.update_flag(preference, "can-be")
-        else
-          @food.update_flag(preference, "true")
+    @pref_arr.each do |preference|
+      if !@preferences[1].nil?
+        @preferences[1].each do |ingredient|
+          if (ingredient.check(preference) == "false")
+            @food.update_flag(preference, "false")
+          end
         end
+      elsif !@preferences[2].nil? && preference[1].nil?
+        if (ingredient.check(preference) == "can-be")
+          @food.update_flag(preference, "can-be")
+        end
+      else
+        @food.update_flag(preference, "true")
       end
     end
   end
