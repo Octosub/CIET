@@ -21,15 +21,19 @@ end
 private
 
 def cleanup(text)
-  text = text.delete("\n").delete("\s").gsub("、 ", ",")
-  text = text.delete(":").delete("●").gsub("、", ",")
+  # raise
+  text = text.delete("\n").delete("\s").delete(":").delete("●")
+  text = text.gsub("、 ", ",")
+  text = text.gsub("、", ",")
   original = text.gsub("､", ",")
   remove_before = original.gsub(/(.*)?(原材料名)\s?(称?ポテトチップス称?)?/, "")
   remove_after = remove_before.gsub(/(\((一部に).*含む\).*)?(内容量.*)?/, "")
+  # raise
   text = remove_after.gsub(/(\((カナダ)?(国産)?又はアメリカ\))/, "")
   text = text.gsub(/(\/?調味料\(アミノ酸等)/, "")
   text = text.gsub(/(国内製造)/, "")
   text = text.gsub(/(酸化防止剤\(V.E\))/, "ビタミンE")
+  text = text.gsub(/(国産米)/, "")
   text = text.delete(")").delete("(")
   # text = text.gsub(/(pH調整剤)/, "")
   # text = text.gsub(/(スープ)/, "")
@@ -51,5 +55,6 @@ def cleanup(text)
   text = text.split(",")
   text = text.uniq
   text = text.join(", ")
+  # raise
   return text
 end
