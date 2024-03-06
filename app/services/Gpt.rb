@@ -1,5 +1,5 @@
 class Gpt
-  All_PREFERENCES = "vegan, vegetarian, pescetarian, peanut-free and dairy-free"
+  All_PREFERENCES = ["vegan", "vegetarian", "pescetarian", "peanut-free", "dairy-free"]
 
   def self.classify_ingredient(ingredient)
     prompt_vegan = "Is #{ingredient.english_name} vegan? Answer only 'true', 'false' or 'unclear'"
@@ -59,9 +59,29 @@ class Gpt
   end
 
   def self.describe_ingredient(ingredient)
-    prompt = <<~PROMPT
-    "Describe #{ingredient.english_name} in 1 sentence, how it is produced in 1 sentence whether that makes it #{All_PREFERENCES} in 1 short sentence."
-    PROMPT
+    preferences = []
+    All_PREFERENCES.each do |preference|
+      if (ingredient.check(preference) != "true")
+        preferences << preference
+      end
+    end
+    prompt = ""
+    if (preferences.count > 1)
+      preferences[-1] = "and #{preferences[-1]}"
+      preferences = preferences.join(", ")
+      prompt = <<~PROMPT
+      "Create a short 1 to 2 sentence description about how #{ingredient.english_name} is produced, and how that potentially makes it not #{preferences}."
+      PROMPT
+    elsif (preferences.count == 1)
+      preferences = preferences.join
+      prompt = <<~PROMPT
+      "Create a short 1 to 2 sentence description about how #{ingredient.english_name} is produced, and how that potentially makes it not #{preferences}."
+      PROMPT
+    else
+      prompt = <<~PROMPT
+      "Create a short 1 to 2 sentence description about how #{ingredient.english_name} is produced."
+      PROMPT
+    end
     client = OpenAI::Client.new
     chatgpt_response = client.chat(parameters: {
     model: "gpt-3.5-turbo",
@@ -74,9 +94,24 @@ class Gpt
   end
 
   def self.describe_unknown_ingredient(ingredient)
-    prompt = <<~PROMPT
-    "Describe #{ingredient} in 1 sentence, how it is produced in 1 sentence whether that makes it #{All_PREFERENCES} in 1 short sentence."
-    PROMPT
+    preferences = All_PREFERENCES
+    prompt = ""
+    if (preferences.count > 1)
+      preferences[-1] = "and #{preferences[-1]}"
+      preferences = preferences.join(", ")
+      prompt = <<~PROMPT
+      "Create a short 1 to 2 sentence description about how #{ingredient.english_name} is produced, and how that potentially makes it not #{preferences}."
+      PROMPT
+    elsif (preferences.count == 1)
+      preferences = preferences.join
+      prompt = <<~PROMPT
+      "Create a short 1 to 2 sentence description about how #{ingredient.english_name} is produced, and how that potentially makes it not #{preferences}."
+      PROMPT
+    else
+      prompt = <<~PROMPT
+      "Create a short 1 to 2 sentence description about how #{ingredient.english_name} is produced."
+      PROMPT
+    end
     client = OpenAI::Client.new
     chatgpt_response = client.chat(parameters: {
     model: "gpt-3.5-turbo",
@@ -84,27 +119,6 @@ class Gpt
     temperature: 0.0
     })
     chatgpt_response["choices"][0]["message"]["content"]
-  end
-
-  def self.classify_food_ingredient_list(food)
-    # just here so it doesnt break
-    preference = "vegan"
-    prompt = <<~PROMPT
-    "Classify the following list of ingredients into #{preference}, non-#{preference}, or can-be-#{preference} categories as accurately as possible: #{food.ingredient_list.gsub("&#39;", "")}
-    Here's an example: "Ingredient1, Ingredient2, Ingredient3." Seperate or group the ingredients in a way that makes sense on an ingredients label. Ignore words that do not make sense on an ingredients label. Respond in one output for all products in the following format:
-      {
-        "false-flags": ["non-#{preference} ingredient1", "non-#{preference} ingredient2", ...],  // list of all and only non-#{preference} ingredients
-        "true-flags": ["#{preference} ingredient1", "#{preference} ingredient2", ...]  // list of only but all #{preference} ingredients
-        "can-be-flags": ["can-be-#{preference} ingredient1", "can-be-#{preference} ingredient2", ...],  // list of ingredients that not clearly #{preference} or non-#{preference}
-      }"
-    PROMPT
-    client = OpenAI::Client.new
-    chatgpt_response = client.chat(parameters: {
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: prompt}],
-    temperature: 0.0
-    })
-    JSON.parse(chatgpt_response["choices"][0]["message"]["content"].gsub("```json\n", "").gsub("\n```", ""))
   end
 
   def self.gpt_call(prompt)
