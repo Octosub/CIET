@@ -64,10 +64,11 @@
   padding: 10px;
   cursor: pointer;
   border-bottom: 2px solid transparent;
+  color: $white;
 }
 
 .bar-item.active {
-  border-bottom: 2px solid $dark-green; 
+  border-bottom: 2px solid $white;
 }
 
 .tab-content.hidden {

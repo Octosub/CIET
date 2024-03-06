@@ -3,26 +3,41 @@
   flex-wrap: wrap;
   justify-content: space-around;
   padding-top: 10px;
-  background-color: rgba($light-gray, 0.3);
-  margin: 20px 10px 0px;
+  background-color: $dark-gray;
   border-radius: 20px;
   padding-bottom: 30px;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bar-container h2 {
+  color: $white;
+}
+
+.ingredient-show-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  justify-items: center;
 }
 
 .wide-bar-card {
-  border: 1px solid #333;
   border-radius: 10px;
-  margin: 5px 3vw 5px 3vw;
-  width: 90%;
+  width: 95%;
+  min-height: 120px;
   padding: 5px;
   overflow: hidden;
   box-shadow: rgba($light-gray, 0.8) 1px 1px 2px;
+  background-color: $white;
 }
 
 .toggle-grid {
   display: grid;
   grid-template-columns: 8fr 1fr;
   gap: 5px;
+  margin-bottom:3px;
+  height: 32%;
 }
 
 .text-wrap {
@@ -62,19 +77,39 @@
   display: block;
   width: 90%;
   height: auto;
-  border-radius: 10px;
+  border-radius: 30px 30px 0px 0px;
   box-shadow: rgba($light-gray, 0.8) 1px 1px 2px;
-  margin: 10px auto 10px auto;
 }
 
 .green-border-image {
-  border: rgba($green, 0.8) 5px solid;
+  border-left: $green 15px solid;
+  border-right: $green 15px solid;
+  border-top: $green 15px solid;
 }
 
 .red-border-image {
-  border: rgba($red, 0.8) 5px solid;
+  border-left: $orange 15px solid;
+  border-right: $orange 15px solid;
+  border-top: $orange 15px solid;
 }
 
 .yellow-border-image {
-  border: rgba($yellow, 0.8) 5px solid;
+  border-left: $yellow 15px solid;
+  border-right: $yellow 15px solid;
+  border-top: $yellow 15px solid;
+}
+
+#food-name-container {
+  background-color: $dark-gray;
+  color: $light-gray;
+  padding: 10px;
+  border-radius: 0px 0px 30px 30px;
+}
+
+.ingredient-preference-results {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5px;
+  padding: 3px;
+  border-radius: 5px;
 }

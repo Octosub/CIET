@@ -1,0 +1,37 @@
+#food-name-container {
+  margin-top: 0px;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+#food-name-container .edit_food {
+  width: 100%;
+}
+
+#name-submit-form {
+  display: flex;
+  justify-content: center;
+}
+
+#name-submit-form > div {
+  width: 100%;
+  margin-bottom: 0px !important;
+}
+
+#food_name {
+  border-radius: 0px 0px 0px 30px;
+}
+
+#name-submit-form input {
+  height: 60px;
+}
+
+.name-submit-btn {
+  width: 60px;
+  background-color: $dark-gray;
+  color: $light-gray;
+  border-radius: 0px 0px 30px 0px;
+  font-size: 2rem;
+}

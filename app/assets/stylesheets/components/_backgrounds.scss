@@ -1,14 +1,15 @@
 .green-background {
-  background-color: rgba($green, 0.3);
+  background-color: $green;
 }
 
 .red-background {
-  background-color: rgba($red, 0.5);
+  background-color: $orange;
 }
 .yellow-background {
-  background-color: rgba($yellow, 0.5);
+  background-color: $yellow;
 }
 
 .gray-background {
-  background-color: rgba($gray, 0.3);
+  background-color: $gray;
 }
+
