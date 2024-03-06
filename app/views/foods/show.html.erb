@@ -74,15 +74,15 @@
 <div class="bar-container">
   <h2>All Ingredients</h2>
   <% @ingredients.each do |ingredient| %>
-    <div class="wide-bar-card" data-controller="extended-infos">
+    <div class="wide-bar-card red-background" data-controller="extended-infos">
       <div class="toggle-grid">
         <p class="text-wrap"><strong><%= ingredient.english_name.capitalize %></strong></p>
         <div class="d-flex">
           <% @pref_arr.each do |preference| %>
             <% if (ingredient.check(preference) == "false") %>
-              <%= image_tag("food_icons/#{preference}.png", class: "small-icon") %>
+              <%= image_tag("food_icons/not-#{preference}.png", class: "small-icon") %>
             <% elsif (ingredient.check(preference) == "can-be")   %>
-              <%= image_tag("food_icons/#{preference}.png", class: "small-icon") %>
+              <%= image_tag("food_icons/maybe-#{preference}.png", class: "small-icon") %>
             <% else %>
               <%= image_tag("food_icons/#{preference}.png", class: "small-icon") %>
             <% end %>
@@ -99,7 +99,7 @@
       </div>
     </div>
   <% end %>
-  <% unless @unknow_ingredients.nil?  %>
+  <% unless @unknow_ingredients.nil? %>
     <% @unknow_ingredients.each do |ingredient| %>
       <% translation = DeepL.translate ingredient, "JA", "EN" %>
       <div class="wide-bar-card gray-background" data-controller="extended-infos">
