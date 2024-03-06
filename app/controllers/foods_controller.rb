@@ -13,6 +13,8 @@ class FoodsController < ApplicationController
     classify_ingredients_individually
     classify_categories
     @pref_flags = pref_flags
+    @ingredients
+    @unknown_ingredients
   end
 
   def new
@@ -54,10 +56,13 @@ class FoodsController < ApplicationController
   def classify_ingredients_individually
     # true, false, can-be, empty
     @preferences = [[], [], [], []]
+    @ingredients = []
+    @unknown_ingredients = []
     @pref_arr.each do |preference|
       @food.ingredient_list.split(", ").each do |ingredient|
         ing = Ingredient.find_by(name: ingredient.strip)
         if !ing.nil?
+          @ingredients << ing
           if ing.check(preference) == "true"
             @preferences[0] << ing
           elsif ing.check(preference) == "false"
@@ -67,6 +72,7 @@ class FoodsController < ApplicationController
           end
         else
           @preferences[3] << ingredient
+          @unknown_ingredients << ingredient
         end
       end
     end
@@ -74,6 +80,8 @@ class FoodsController < ApplicationController
     @preferences[1].uniq!
     @preferences[2].uniq!
     @preferences[3].uniq!
+    @ingredients.uniq!
+    @unknown_ingredients.uniq!
   end
 
   def classify_categories
