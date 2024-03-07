@@ -68,6 +68,9 @@
   height: 50px;
   max-width: 200px;
   margin-right: 10px;
+  overflow: scroll;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   img {
     height: auto;
     width: 50px;
