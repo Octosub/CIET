@@ -15,6 +15,9 @@ class FoodsController < ApplicationController
     pref_flags
     @ingredients
     @unknown_ingredients
+    @false_ingredients
+    @maybe_ingredients
+    @true_ingredients
     get_ingredients
   end
 
@@ -57,12 +60,24 @@ class FoodsController < ApplicationController
   def get_ingredients
     @ingredients = []
     @unknown_ingredients = []
+    @false_ingredients = []
+    @maybe_ingredients = []
+    @true_ingredients = []
     @ingredient_list.each do |ingredient|
       ing = Ingredient.find_by(name: ingredient.strip)
       if !ing.nil?
         @ingredients << ing
       else
         @unknown_ingredients << ing
+      end
+    end
+    @ingredients.each do |ingredient|
+      if (ingredient.full_check(@pref_arr).include?("false"))
+        @false_ingredients << ingredient
+      elsif (ingredient.full_check(@pref_arr).include?("can-be") && !@false_ingredients.include?(ingredient))
+        @maybe_ingredients << ingredient
+      else
+        @true_ingredients << ingredient
       end
     end
   end
