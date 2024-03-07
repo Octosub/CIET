@@ -17,7 +17,7 @@
             <div class="index-icons">
               <% prefs.each do |pref| %>
                 <% check = food.check(pref) %>
-                <%= image_tag("food_icons/#{"maybe-" if check == "can-be"}#{"not" if check == "false"}#{pref}.png", class: "small-icon") %>
+                <%= image_tag("food_icons/#{"maybe-" if check == "can-be"}#{"not-" if check == "false"}#{pref}.png", class: "small-icon") %>
               <% end %>
             </div>
           </div>
