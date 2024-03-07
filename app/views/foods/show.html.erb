@@ -3,12 +3,12 @@
     <h1>You cannot eat this!</h1>
     <div class="d-flex flex-row">
       <% Gpt::All_PREFERENCES.each do |preference| %>
-        <% if (@food.check(preference) == "false") %>
-          <%= image_tag("food_icons/not-#{preference}.png", class: "medium-icon") %>
-        <% elsif (@food.check(preference) == "can-be")   %>
-          <%= image_tag("food_icons/maybe-#{preference}.png", class: "medium-icon") %>
+        <% if (@food.check(preference.gsub(/(and\s?)/,"")) == "false") %>
+          <%= image_tag("food_icons/not-#{preference.gsub(/(and\s?)/,"")}.png", class: "medium-icon") %>
+        <% elsif (@food.check(preference.gsub(/(and\s?)/,"")) == "can-be")   %>
+          <%= image_tag("food_icons/maybe-#{preference.gsub(/(and\s?)/,"")}.png", class: "medium-icon") %>
         <% else %>
-          <%= image_tag("food_icons/#{preference}.png", class: "medium-icon") %>
+          <%= image_tag("food_icons/#{preference.gsub(/(and\s?)/,"")}.png", class: "medium-icon") %>
         <% end %>
       <% end %>
     </div>
@@ -109,17 +109,22 @@
   </div>
 <% end %>
 <% unless @unknown_ingredients.length == 0 %>
-  <div class="bar-container">
+  <div class="bar-container ingredient-show-container">
     <h2>Unknown</h2>
     <% @unknown_ingredients.each do |ingredient| %>
       <% translation = DeepL.translate ingredient, "JA", "EN" %>
-      <div class="wide-bar-card gray-background" data-controller="extended-infos">
-        <div class="toggle-grid">
-          <p class="text-wrap"><strong><%= translation %></strong> (<%= ingredient %>) was not found</p>
+      <div class="wide-bar-card gray-background" data-controller="extended-infos" data-extended-infos-target="shover">
+        <div class="toggle-grid" data-extended-infos-target="shrinker">
+          <p class="text-wrap d-none" data-extended-infos-target="showup"><strong><%= translation.text.capitalize %></strong></p>
+          <% if translation.text.length > 9 %>
+            <p class="text-wrap" data-extended-infos-target="hider"><strong><%= translation.text[0..8] %>...</strong></p>
+          <% else %>
+            <p class="text-wrap" data-extended-infos-target="hider"><strong><%= translation.text.capitalize %></strong></p>
+          <% end %>
           <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
         </div>
         <div class="d-none extended-infos" data-extended-infos-target="info">
-          <p>Sorry, we couldn't find that</p>
+          <p>Sorry, we couldn't find <%= ingredient %></p>
           <p><strong>Here is what we think it is:</strong> <%= Gpt.describe_unknown_ingredient(translation) %></p>
           <div class="extended-infos-grid">
             <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient}", target: '_blank', class: "btn btn-primary" %>

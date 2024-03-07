@@ -68,7 +68,7 @@ class FoodsController < ApplicationController
       if !ing.nil?
         @ingredients << ing
       else
-        @unknown_ingredients << ing
+        @unknown_ingredients << ingredient
       end
     end
     @ingredients.each do |ingredient|

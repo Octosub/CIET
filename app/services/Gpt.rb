@@ -100,16 +100,16 @@ class Gpt
       preferences[-1] = "and #{preferences[-1]}"
       preferences = preferences.join(", ")
       prompt = <<~PROMPT
-      "Create a short 1 to 2 sentence description about how #{ingredient.english_name} is produced, and how that potentially makes it not #{preferences}."
+      "Create a short 1 to 2 sentence description about how #{ingredient.text} is produced, and how that potentially makes it not #{preferences}."
       PROMPT
     elsif (preferences.count == 1)
       preferences = preferences.join
       prompt = <<~PROMPT
-      "Create a short 1 to 2 sentence description about how #{ingredient.english_name} is produced, and how that potentially makes it not #{preferences}."
+      "Create a short 1 to 2 sentence description about how #{ingredient.text} is produced, and how that potentially makes it not #{preferences}."
       PROMPT
     else
       prompt = <<~PROMPT
-      "Create a short 1 to 2 sentence description about how #{ingredient.english_name} is produced."
+      "Create a short 1 to 2 sentence description about how #{ingredient.text} is produced."
       PROMPT
     end
     client = OpenAI::Client.new
