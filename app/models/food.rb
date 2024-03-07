@@ -27,8 +27,8 @@ class Food < ApplicationRecord
     if preference == "vegan"
       self.vegan = flag
       self.save
-    elsif preference == "vegitarian"
-      self.vegitarian = flag
+    elsif preference == "vegetarian"
+      self.vegetarian = flag
       self.save
     elsif preference == "pescetarian"
       self.pescetarian = flag
