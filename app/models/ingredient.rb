@@ -5,10 +5,10 @@ class Ingredient < ApplicationRecord
   def check(preference)
     if preference == "vegan"
       return self.vegan
-    elsif preference == "vegitarian"
-      return self.vegitarian
-    elsif preference == "pescitarian"
-      return self.pescitarian
+    elsif preference == "vegetarian"
+      return self.vegetarian
+    elsif preference == "pescetarian"
+      return self.pescetarian
     elsif preference == "dairy-free"
       return self.dairy_free
     else

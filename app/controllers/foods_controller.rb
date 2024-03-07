@@ -12,8 +12,8 @@ class FoodsController < ApplicationController
     @ingredient_list = @food.ingredient_list.split(", ")
     @pref_arr = current_user.preferences.split(" ")
     classify_ingredients_individually
-    classify_categories
-    @pref_flags = pref_flags
+    @pref_flags
+    pref_flags
     @ingredients
     @unknown_ingredients
   end
@@ -27,6 +27,9 @@ class FoodsController < ApplicationController
     @food.user = current_user
     if @food.save
       @food.extract_ingredients
+      @ingredient_list = @food.ingredient_list.split(", ")
+      classify_ingredients_individually
+      classify_categories
       redirect_to food_path(@food)
     else
       flash[:error] = @food.errors.full_messages.join(", ")
@@ -56,7 +59,7 @@ class FoodsController < ApplicationController
     @preferences = [[], [], [], []]
     @ingredients = []
     @unknown_ingredients = []
-    @pref_arr.each do |preference|
+    Gpt::All_PREFERENCES.each do |preference|
       @ingredient_list.each do |ingredient|
         ing = Ingredient.find_by(name: ingredient.strip)
         if !ing.nil?
@@ -83,28 +86,31 @@ class FoodsController < ApplicationController
   end
 
   def classify_categories
-    @pref_arr.each do |preference|
-      if !@preferences[1].nil?
+    Gpt::All_PREFERENCES.each do |preference|
+      if (!@preferences[1].nil?)
         @preferences[1].each do |ingredient|
           if (ingredient.check(preference) == "false")
             @food.update_flag(preference, "false")
           end
         end
-      elsif !@preferences[2].nil? && preference[1].nil?
-        if (ingredient.check(preference) == "can-be")
-          @food.update_flag(preference, "can-be")
+      end
+      if (!@preferences[2].nil? && @food.check(preference).nil?)
+        @preferences[2].each do |ingredient|
+          if (ingredient.check(preference) == "can-be")
+            @food.update_flag(preference, "can-be")
+          end
         end
-      else
+      end
+      if (@food.check(preference).nil?)
         @food.update_flag(preference, "true")
       end
     end
   end
 
   def pref_flags
-    arr = []
+    @pref_flags = []
     @pref_arr.each do |pref|
-      arr << @food.check(pref)
+      @pref_flags << @food.check(pref)
     end
-    return arr
   end
 end
