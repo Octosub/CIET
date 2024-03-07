@@ -50,7 +50,11 @@
   flex-direction: column;
 }
 
-.centered-form {
+.pictures-container > img {
+  width: 95%;
+}
+
+  .centered-form {
   display: flex;
   justify-content: center;
   align-items: center;

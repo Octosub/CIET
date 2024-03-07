@@ -48,6 +48,36 @@
   }
 }
 
+.toggle-bar-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding-top: 10px;
+  background-color: rgba($light-gray, 0.3);
+  margin: 20px 10px;
+  border-radius: 20px;
+  padding-bottom: 10px;
+}
+
+.bar-item {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  color: $white;
+}
+
+.bar-item.active {
+  border-bottom: 2px solid $white;
+}
+
+.tab-content.hidden {
+  display: none;
+}
+
+#loading-text {
+  font-size: 24px;
+}
+
 #scan-text {
   font-size: 26px;
   font-weight: bold;

@@ -3,7 +3,6 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="fav-his-toggler"
 export default class extends Controller {
   connect() {
-    console.log("fav his toggler initialized");
 
     const favoritesTab = document.getElementById('favorites-tab');
     const historyTab = document.getElementById('history-tab');
