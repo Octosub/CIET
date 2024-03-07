@@ -81,8 +81,8 @@
         <div class="wide-bar-card" data-controller="extended-infos" data-extended-infos-target="shover">
           <div class="toggle-grid" data-extended-infos-target="shrinker">
             <p class="text-wrap d-none" data-extended-infos-target="showup"><strong><%= ingredient.english_name.capitalize %></strong></p>
-            <% if ingredient.english_name.length > 12 %>
-              <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize[0..11] %>...</strong></p>
+            <% if ingredient.english_name.length > 9 %>
+              <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize[0..8] %>...</strong></p>
             <% else %>
               <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize %></strong></p>
             <% end %>
