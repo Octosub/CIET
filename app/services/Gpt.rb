@@ -1,5 +1,5 @@
 class Gpt
-  All_PREFERENCES = ["vegan", "vegetarian", "pescetarian", "peanut-free", "dairy-free"]
+  ALL_PREFERENCES = ["vegan", "vegetarian", "pescetarian", "peanut-free", "dairy-free"]
 
   def self.classify_ingredient(ingredient)
     prompt_vegan = "Is #{ingredient.english_name} vegan? Answer only 'true', 'false' or 'unclear'"
@@ -59,23 +59,23 @@ class Gpt
   end
 
   def self.describe_ingredient(ingredient)
-    preferences = []
-    All_PREFERENCES.each do |preference|
+    prompt_pref = []
+    ALL_PREFERENCES.each do |preference|
       if (ingredient.check(preference) != "true")
-        preferences << preference
+        prompt_pref << preference
       end
     end
     prompt = ""
-    if (preferences.count > 1)
-      preferences[-1] = "and #{preferences[-1]}"
-      preferences = preferences.join(", ")
+    if (prompt_pref.count > 1)
+      prompt_pref[-1] = "and #{preferences[-1]}"
+      prompt_pref = prompt_pref.join(", ")
       prompt = <<~PROMPT
-      "Create a short 1 to 2 sentence description about how #{ingredient.english_name} is produced, and how that potentially makes it not #{preferences}."
+      "Create a short 1 to 2 sentence description about how #{ingredient.english_name} is produced, and how that potentially makes it not #{prompt_pref}."
       PROMPT
-    elsif (preferences.count == 1)
-      preferences = preferences.join
+    elsif (prompt_pref.count == 1)
+      prompt_pref = prompt_pref.join
       prompt = <<~PROMPT
-      "Create a short 1 to 2 sentence description about how #{ingredient.english_name} is produced, and how that potentially makes it not #{preferences}."
+      "Create a short 1 to 2 sentence description about how #{ingredient.english_name} is produced, and how that potentially makes it not #{prompt_pref}."
       PROMPT
     else
       prompt = <<~PROMPT
@@ -94,18 +94,18 @@ class Gpt
   end
 
   def self.describe_unknown_ingredient(ingredient)
-    preferences = All_PREFERENCES
+    prompt_pref = ALL_PREFERENCES
     prompt = ""
-    if (preferences.count > 1)
-      preferences[-1] = "and #{preferences[-1]}"
-      preferences = preferences.join(", ")
+    if (prompt_pref.count > 1)
+      prompt_pref[-1] = "and #{prompt_pref[-1]}"
+      prompt_pref = prompt_pref.join(", ")
       prompt = <<~PROMPT
-      "Create a short 1 to 2 sentence description about how #{ingredient.text} is produced, and how that potentially makes it not #{preferences}."
+      "Create a short 1 to 2 sentence description about how #{ingredient.text} is produced, and how that potentially makes it not #{prompt_pref}."
       PROMPT
-    elsif (preferences.count == 1)
-      preferences = preferences.join
+    elsif (prompt_pref.count == 1)
+      prompt_pref = prompt_pref.join
       prompt = <<~PROMPT
-      "Create a short 1 to 2 sentence description about how #{ingredient.text} is produced, and how that potentially makes it not #{preferences}."
+      "Create a short 1 to 2 sentence description about how #{ingredient.text} is produced, and how that potentially makes it not #{prompt_pref}."
       PROMPT
     else
       prompt = <<~PROMPT
