@@ -17,47 +17,96 @@
   flex-direction: column;
 }
 
-#image-track .vegan-item {
-  background-color: $dark-green;
-  color: white;
-  font-size: 2rem;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+// #image-track .vegan-item {
+//   background-color: $dark-green;
+//   color: white;
+//   font-size: 2rem;
+//   justify-content: center;
+//   align-items: center;
+//   text-align: center;
+// }
 
-#image-track .non-vegan-item {
-  background-color: #D36135;
-  color: white;
-  font-size: 2rem;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+// // #image-track .non-vegan-item {
+// //   background-color: #D36135;
+// //   color: white;
+// //   font-size: 2rem;
+// //   justify-content: center;
+// //   align-items: center;
+// //   text-align: center;
+// // }
 
-.vegan-food-history-item {
-  border: solid $dark-green 15px;
-  border-radius: 20px 20px 10px 10px;
-  margin: 20px 10px;
+.index-cards {
+  border-radius: 15px;
+  margin: 10px 10px;
   height: 30vh;
 }
 
-.non-vegan-food-history-item {
-  border: solid $orange 15px;
-  border-radius: 20px 20px 10px 10px;
-  margin: 20px 10px;
-  height: 30vh;
+.true-food-history-item {
+  @extend .index-cards;
 }
 
-.food-history-item p {
-  font-size: 2rem;
-  color: $white;
-  text-align: center;
+.false-food-history-item {
+  @extend .index-cards;
 }
 
-#image-track img {
+.can-be-food-history-item {
+  @extend .index-cards;
+}
+
+// .food-history-item p {
+//   font-size: 2rem;
+//   color: $white;
+//   text-align: center;
+// }
+
+.thumbnail img {
   width: 100%;
   height: 81%;
   object-fit: cover;
   object-position: center;
+}
+
+.index-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  // margin-top: 10px;
+  // margin-bottom: 10px;
+  // padding: 10px;
+  height: 50px;
+  img {
+    height: auto;
+    width: 50px;
+  }
+}
+
+.green-border-card {
+  border: $green 15px solid;
+  img {
+    // border-bottom: 5px solid $green;
+  }
+}
+
+.red-border-card {
+  border: $orange 15px solid;
+  img {
+    // border-bottom: 5px solid $orange;
+  }
+}
+
+.yellow-border-card {
+  border: $yellow 15px solid;
+  img {
+    // border-bottom: 5px solid $yellow;
+  }
+}
+
+.infos-index {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  height: 50px;
+  width: 100%;
 }
