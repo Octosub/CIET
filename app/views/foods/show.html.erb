@@ -8,7 +8,7 @@
       <% end %>
     </h2>
   </div>
-<% elsif @pref_flags.include?("can-be") %>
+<% elsif @pref_flags.include?("can-be") && !@pref_flags.include?("false") %>
   <div class="show-result-container" id="show-mid-result">
     <h2>Your scanned Item might not be
       <% @pref_arr.each do |preference| %>
@@ -20,13 +20,7 @@
   </div>
 <% else %>
   <div class="show-result-container" id="show-good-result">
-    <h2>Your scanned Item is
-      <% @pref_arr.each do |preference| %>
-        <% if @food.check(preference) == "true" %>
-          <%= "#{preference} " %>
-        <% end %>
-      <% end %>
-    </h2>
+    <h2>Your scanned Item is <%= current_user.preferences  %> </h2>
   </div>
 <% end %>
 
