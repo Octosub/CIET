@@ -18,12 +18,12 @@
     <h1>Maybe you can eat this!</h1>
     <div class="d-flex flex-row">
       <% Gpt::ALL_PREFERENCES.each do |preference| %>
-        <% if (@food.check(preference) == "false") %>
+        <% if (@food.check(preference.gsub(/(and\s?)/,"")) == "false") %>
           <%= image_tag("food_icons/not-#{preference}.png", class: "medium-icon") %>
-        <% elsif (@food.check(preference) == "can-be")   %>
-          <%= image_tag("food_icons/maybe-#{preference}.png", class: "medium-icon") %>
+        <% elsif (@food.check(preference.gsub(/(and\s?)/,"")) == "can-be")   %>
+          <%= image_tag("food_icons/maybe-#{preference.gsub(/(and\s?)/,"")}.png", class: "medium-icon") %>
         <% else %>
-          <%= image_tag("food_icons/#{preference}.png", class: "medium-icon") %>
+          <%= image_tag("food_icons/#{preference.gsub(/(and\s?)/,"")}.png", class: "medium-icon") %>
         <% end %>
       <% end %>
     </div>
@@ -33,12 +33,12 @@
     <h1>You can eat this!</h1>
     <div class="d-flex flex-row">
       <% Gpt::ALL_PREFERENCES.each do |preference| %>
-        <% if (@food.check(preference) == "false") %>
-          <%= image_tag("food_icons/not-#{preference}.png", class: "medium-icon") %>
-        <% elsif (@food.check(preference) == "can-be")   %>
-          <%= image_tag("food_icons/maybe-#{preference}.png", class: "medium-icon") %>
+        <% if (@food.check(preference.gsub(/(and\s?)/,"")) == "false") %>
+          <%= image_tag("food_icons/not-#{preference.gsub(/(and\s?)/,"")}.png", class: "medium-icon") %>
+        <% elsif (@food.check(preference.gsub(/(and\s?)/,"")) == "can-be")   %>
+          <%= image_tag("food_icons/maybe-#{preference.gsub(/(and\s?)/,"")}.png", class: "medium-icon") %>
         <% else %>
-          <%= image_tag("food_icons/#{preference}.png", class: "medium-icon") %>
+          <%= image_tag("food_icons/#{preference.gsub(/(and\s?)/,"")}.png", class: "medium-icon") %>
         <% end %>
       <% end %>
     </div>
