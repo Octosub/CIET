@@ -8,12 +8,52 @@
     <% end %>
     <%= link_to food_path(food), class: "text-decoration-none food-card-container index-cards" do %>
       <% if checks.include?("false") %>
-        <div class="false-food-history-item red-border-card thumbnail">
-          <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fit, class:'bottom-border-red' %>
+        <div class="red-border-card">
+          <div class="false-food-history-item thumbnail">
+            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fit, class:'bottom-border-green' %>
+          </div>
+          <div class="infos-index">
+            <h3 class="food-title"><%= !food.name.nil? ? food.name : "Item ##{food.id}" %></h3>
+            <div class="index-icons">
+              <% prefs.each do |pref| %>
+                <% check = food.check(pref) %>
+                <%= image_tag("food_icons/#{"maybe-" if check == "can-be"}#{"not" if check == "false"}#{pref}.png", class: "small-icon") %>
+              <% end %>
+            </div>
+          </div>
+            <% if favorites.find_by(food_id: food.id) %>
+              <%= link_to favorite_path(favorites.where("food_id=#{food.id}").ids), data: { turbo_method: :delete } do %>
+                <i class="fa-solid fa-heart liked-heart" style="color: #ff0000;"></i>
+              <% end %>
+            <% else %>
+              <%= link_to food_favorites_path(food), data: { turbo_method: :post } do %>
+                <i class="fa-regular fa-heart unliked-heart"></i>
+              <% end %>
+            <% end %>
         </div>
       <% elsif checks.include?("can-be") %>
-        <div class="can-be-food-history-item yellow-border-card thumbnail">
-          <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fit, class:'bottom-border-yellow' %>
+        <div class="yellow-border-card">
+          <div class="can-be-food-history-item thumbnail">
+            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fit, class:'bottom-border-green' %>
+          </div>
+          <div class="infos-index">
+            <h3 class="food-title"><%= !food.name.nil? ? food.name : "Item ##{food.id}" %></h3>
+            <div class="index-icons">
+              <% prefs.each do |pref| %>
+                <% check = food.check(pref) %>
+                <%= image_tag("food_icons/#{"maybe-" if check == "can-be"}#{"not" if check == "false"}#{pref}.png", class: "small-icon") %>
+              <% end %>
+            </div>
+          </div>
+            <% if favorites.find_by(food_id: food.id) %>
+              <%= link_to favorite_path(favorites.where("food_id=#{food.id}").ids), data: { turbo_method: :delete } do %>
+                <i class="fa-solid fa-heart liked-heart" style="color: #ff0000;"></i>
+              <% end %>
+            <% else %>
+              <%= link_to food_favorites_path(food), data: { turbo_method: :post } do %>
+                <i class="fa-regular fa-heart unliked-heart"></i>
+              <% end %>
+            <% end %>
         </div>
       <% else %>
         <div class="green-border-card">

@@ -28,14 +28,23 @@
 
 .true-food-history-item {
   @extend .index-cards;
+  img {
+    border-bottom: $green 5px solid;
+  }
 }
 
 .false-food-history-item {
   @extend .index-cards;
+  img {
+    border-bottom: $red 5px solid;
+  }
 }
 
 .can-be-food-history-item {
   @extend .index-cards;
+  img {
+    border-bottom: $yellow 5px solid;
+  }
 }
 
 .thumbnail {
@@ -46,7 +55,7 @@
   object-fit: cover;
   object-position: center;
   margin: 0px;
-  border-bottom: $green 5px solid;
+  // border-bottom: $light-gray 5px solid;
   justify-content: center;
   }
 }
@@ -102,4 +111,5 @@
   margin-top: 35px;
   margin-left: 10px;
   max-width: 160px;
+  text-overflow: ellipsis;
 }
