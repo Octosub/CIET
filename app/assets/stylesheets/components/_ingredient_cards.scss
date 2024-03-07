@@ -13,6 +13,7 @@
 
 .bar-container h2 {
   color: $white;
+  grid-column: span 2;
 }
 
 .ingredient-show-container {
@@ -20,6 +21,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 5px;
   justify-items: center;
+  margin-bottom: 10px;
 }
 
 .wide-bar-card {
@@ -37,7 +39,6 @@
   grid-template-columns: 8fr 1fr;
   gap: 5px;
   margin-bottom:3px;
-  height: 32%;
 }
 
 .text-wrap {
@@ -83,20 +84,14 @@
 
 .green-border-image {
   border-left: $green 15px solid;
-  border-right: $green 15px solid;
-  border-top: $green 15px solid;
 }
 
 .red-border-image {
-  border-left: $orange 15px solid;
-  border-right: $orange 15px solid;
-  border-top: $orange 15px solid;
+  border: $orange 15px solid;
 }
 
 .yellow-border-image {
-  border-left: $yellow 15px solid;
-  border-right: $yellow 15px solid;
-  border-top: $yellow 15px solid;
+  border: $yellow 15px solid;
 }
 
 #food-name-container {
