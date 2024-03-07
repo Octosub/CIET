@@ -1,13 +1,13 @@
 <h2>Edit <%= current_user.username %>'s Profile</h2>
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "centered-form" }) do |f| %>
   <%= f.error_notification %>
-  <div class="form-inputs ninety-width-input">
+  <div class="ninety-width-input">
     <%= f.input :photo, as: :file,
         label: current_user.photo.present? ? cl_image_tag(current_user.photo.key) : image_tag("profile_pic.png"),
         label_html: { class: "profile-pic d-flex justify-content-center" },
-        input_html: { class: "input-bar d-none" } %>
-    <%= f.input :username, required: true, autofocus: true %>
-    <%= f.input :email, required: true, autofocus: true %>
+        input_html: { class: "d-none" } %>
+    <%= f.input :username, required: true, autofocus: true, input_html: { class: "input-bar" } %>
+    <%= f.input :email, required: true, autofocus: true, input_html: { class: "input-bar" } %>
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
@@ -24,17 +24,18 @@
     <%= f.input :current_password,
                 hint: "we need your current password to confirm your changes",
                 required: true,
-                input_html: { autocomplete: "current-password" } %>
+                input_html: { autocomplete: "current-password", class: "input-bar" } %>
+    <hr>
     <%= f.input :password,
                 label: "New Password",
                 hint: "leave it blank if you don't want to change it",
                 required: false,
-                input_html: { autocomplete: "new-password" } %>
+                input_html: { autocomplete: "new-password", class: "input-bar" } %>
     <%= f.input :password_confirmation,
                 required: false,
-                input_html: { autocomplete: "new-password" } %>
+                input_html: { autocomplete: "new-password", class: "input-bar" } %>
   </div>
-  <div class="form-actions">
+  <div class="form-actions navbar-margin submit-btn">
     <%= f.button :submit, "Update" %>
   </div>
 <% end %>
