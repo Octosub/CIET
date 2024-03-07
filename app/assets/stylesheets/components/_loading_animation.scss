@@ -13,5 +13,25 @@
 
 .loading-screen-container {
   position: relative;
+}
 
+#loading-text {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  left: 50.7%;
+  transition: color 0.5s ease-in-out;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+@keyframes loadingTextAnimation {
+  33% { content: "Scanning Data..."; }
+  66% { content: "Extracting Data..."; }
+  100% { content: "Loaded!!!"; }
+}
+
+#loading-text::after {
+  content: "Loading...";
+  animation: loadingTextAnimation 12s infinite;
 }

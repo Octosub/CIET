@@ -1,4 +1,3 @@
-
 // Specific CSS for your home-page
 
 #logo {
@@ -77,10 +76,27 @@
 
 #loading-text {
   font-size: 24px;
+}
+
+#scan-text {
+  font-size: 26px;
   font-weight: bold;
   color: #333;
-  left: 52%;
-  transition: color 0.5s ease-in-out;
+  top: 65%;
+  left: 41.8%;
   transform: translate(-50%, -50%);
   position: absolute;
+  opacity: 0;
+  animation: cascadeText 0.8s ease-in 1.2s forwards;
+}
+
+@keyframes cascadeText {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
