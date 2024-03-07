@@ -6,6 +6,7 @@
         label: current_user.photo.present? ? cl_image_tag(current_user.photo.key) : image_tag("profile_pic.png"),
         label_html: { class: "profile-pic d-flex justify-content-center" },
         input_html: { class: "d-none" } %>
+<hr>
     <%= f.input :username, required: true, autofocus: true, input_html: { class: "input-bar" } %>
     <%= f.input :email, required: true, autofocus: true, input_html: { class: "input-bar" } %>
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -35,7 +36,7 @@
                 required: false,
                 input_html: { autocomplete: "new-password", class: "input-bar" } %>
   </div>
-  <div class="form-actions navbar-margin submit-btn">
+  <div class="form-actions navbar-margin btn submit-btn">
     <%= f.button :submit, "Update" %>
   </div>
 <% end %>

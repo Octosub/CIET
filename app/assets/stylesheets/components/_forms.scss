@@ -140,11 +140,10 @@
   border: rgba($gray, 0.6) 2px solid;
   padding: 10px 20px;
   border-radius: 15px;
-  transition: background-color 0.2s ease;
   margin-top: 20px;
   box-shadow: rgba($gray, 0.05) 0px 0px 5px 3px;
 }
 
 .submit-btn:hover {
-  background-color: $green;
+  background-color: rgba($green, 0.3);
 }
