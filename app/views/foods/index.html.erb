@@ -1,0 +1,14 @@
+<div class="index-container" data-controller="fav-his-toggler">
+  <div class="bar-container">
+    <div class="bar-item active" id="history-tab">History</div>
+    <div class="bar-item" id="favorites-tab">Favorites</div>
+  </div>
+  <div class="content-container">
+    <div class="tab-content" id="history-content">
+      <%= render 'food_carousel', foods: current_user.foods, favorites: current_user.favorites %>
+    </div>
+    <div class="tab-content hidden" id="favorites-content">
+      <%= render 'favorites_carousel', foods: current_user.fav_foods, favorites: current_user.favorites %>
+    </div>
+  </div>
+</div>

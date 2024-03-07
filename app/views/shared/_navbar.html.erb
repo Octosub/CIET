@@ -1,0 +1,21 @@
+<div class="navbar fixed-bottom">
+  <div class="navbar-container">
+    <div class="navbar-items" id="navbarSupportedContent">
+      <% if user_signed_in? %>
+        <%= link_to edit_user_registration_path, class: 'nav-item' do %>
+          <i class="fa-regular fa-circle-user"></i>
+        <% end %>
+        <%= link_to '/', class: 'nav-item' do %>
+          <i class="fa-solid fa-expand"></i>
+        <% end %>
+        <%= link_to '/foods', class: 'nav-item' do %>
+          <i class="fa-solid fa-clock-rotate-left"></i>
+        <% end %>
+      <% else %>
+        <%= link_to new_user_session_path, class: "nav-link" do %>
+          <i class="fa-solid fa-right-to-bracket"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

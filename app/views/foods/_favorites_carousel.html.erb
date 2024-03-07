@@ -1,0 +1,37 @@
+<div class="cards-container">
+  <div id="image-track">
+    <% foods.each do |food| %>
+      <% if food.vegan == "true" %>
+        <div class="vegan-food-history-item">
+          <%= link_to food_path(food), class: "text-decoration-none food-card-container" do %>
+            <div class="vegan-item">
+              <p class="m-0">
+                <i class="fa-solid fa-seedling" style="color: #ffffff;"></i>
+                <%= food.name.present? ? food.name : "Item Nr.#{food.id}" %>
+              </p>
+            </div>
+            <%= link_to favorite_path(favorites.where("food_id=#{food.id}").ids), data: { turbo_method: :delete } do %>
+              <i class="fa-solid fa-heart liked-heart" style="color: #ff0000;"></i>
+            <% end %>
+            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fit, class:'border-green' %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="non-vegan-food-history-item">
+          <%= link_to food_path(food), class: "text-decoration-none food-card-container" do %>
+            <%= cl_image_tag food.photos.last.key, height: 500, width: 300, crop: :fit, class:'border-red' %>
+            <div class="non-vegan-item">
+              <p class="m-0">
+                <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
+                <%= food.name.present? ? food.name : "Item Nr.#{food.id}" %>
+              </p>
+            </div>
+            <%= link_to favorite_path(favorites.where("food_id=#{food.id}").ids), data: { turbo_method: :delete } do %>
+              <i class="fa-solid fa-heart liked-heart" style="color: #ff0000;"></i>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

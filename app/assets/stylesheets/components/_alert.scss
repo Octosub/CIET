@@ -1,0 +1,8 @@
+.alert {
+  position: fixed;
+  bottom: 10vh;
+  right: 0px;
+  z-index: 1000;
+  background-color: $dark-green;
+  color: $white;
+}

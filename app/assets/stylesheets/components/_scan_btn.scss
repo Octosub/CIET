@@ -1,0 +1,44 @@
+.scan-btn {
+  height: 300px;
+  width: 300px;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+}
+
+.scan-btn-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  align-items: center;
+}
+
+.scan-btn-rotate {
+  height: 300px;
+  width: 300px;
+  position: relative;
+}
+
+.scan-btn-plus-rotate {
+  width: 50px;
+  position: absolute;
+  bottom: 49%;
+  left: 44%;
+}
+
+.scan-btn-container {
+  justify-content: center;
+  flex-direction: column;
+}
+
+.scan-tag {
+  font-size: 4rem;
+  color: $dark-green;
+  position: absolute;
+  bottom: 10%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  justify-content: center;
+}

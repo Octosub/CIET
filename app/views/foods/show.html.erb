@@ -1,0 +1,108 @@
+<div class="show-result-container d-flex">
+  <% Gpt::All_PREFERENCES.each do |preference| %>
+    <% if (@food.check(preference) == "false") %>
+      <%= image_tag("food_icons/not-#{preference}.png", class: "medium-icon") %>
+    <% elsif (@food.check(preference) == "can-be")   %>
+      <%= image_tag("food_icons/maybe-#{preference}.png", class: "medium-icon") %>
+    <% else %>
+      <%= image_tag("food_icons/#{preference}.png", class: "medium-icon") %>
+    <% end %>
+  <% end %>
+</div>
+<div class="pictures-container" data-controller="phototoggler">
+  <% if @food.photos[1].present? %>
+    <% if @pref_flags.include?("false") %>
+      <%= cl_image_tag @food.photos[1].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "front", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image red-border-image" %>
+      <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image red-border-image d-none" %>
+    <% elsif @pref_flags.include?("can-be") %>
+      <%= cl_image_tag @food.photos[1].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "front", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image yellow-border-image" %>
+      <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image yellow-border-image d-none" %>
+    <% else %>
+      <%= cl_image_tag @food.photos[1].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "front", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image green-border-image" %>
+      <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image green-border-image d-none" %>
+    <% end %>
+  <% else %>
+    <%= simple_form_for @food, method: "patch", data: { controller: "autosubmit", 'autosubmit-target': "form"} do |f| %>
+      <div class="plus-icon-invisible">
+        <div>
+          <%= image_tag "icon_plus.png" %> Add Front Photo
+        </div>
+      </div>
+      <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, data: {action: "input->autosubmit#submitPicture"}, class: "invisible-form-small" } %>
+    <% end %>
+    <% if @pref_flags.include?("false") %>
+      <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image red-border-image" %>
+    <% elsif @pref_flags.include?("can-be") %>
+      <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image yellow-border-image" %>
+    <% else %>
+      <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image green-border-image" %>
+    <% end %>
+  <% end %>
+</div>
+<div id="food-name-container">
+  <% if @food.name.present? %>
+    <h1 id="food-display-name"><%= @food.name %></h1>
+  <% else %>
+    <div class="name-submit-form-container">
+      <%= simple_form_for @food, method: "patch", html: { id: "name-submit-form" } do |f| %>
+        <%= f.input :name, label: false, placeholder: "Enter Product Name", class: 'food-name-input-field' %>
+        <%= f.submit "+", class: "btn name-submit-btn" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<div class="bar-container">
+  <h2>Ingredients</h2>
+  <div class="ingredient-show-container">
+    <% @ingredients.each do |ingredient| %>
+      <div class="wide-bar-card" data-controller="extended-infos" data-extended-infos-target="shover">
+        <div class="toggle-grid" data-extended-infos-target="shrinker">
+          <p class="text-wrap d-none" data-extended-infos-target="showup"><strong><%= ingredient.english_name.capitalize %></strong></p>
+          <% if ingredient.english_name.length > 9 %>
+            <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize[0..8] %>...</strong></p>
+          <% else %>
+            <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize %></strong></p>
+          <% end %>
+          <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
+        </div>
+        <div class="ingredient-preference-results">
+          <% @pref_arr.each do |preference| %>
+            <% if (ingredient.check(preference) == "false") %>
+              <%= image_tag("food_icons/not-#{preference}.png", class: "small-icon") %>
+            <% elsif (ingredient.check(preference) == "can-be")   %>
+              <%= image_tag("food_icons/maybe-#{preference}.png", class: "small-icon") %>
+            <% else %>
+              <%= image_tag("food_icons/#{preference}.png", class: "small-icon") %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="d-none extended-infos" data-extended-infos-target="info">
+          <p><strong>Description: </strong><%= ingredient.english_description %></p>
+          <div class="extended-infos-grid">
+            <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient.english_name}", target: '_blank', class: "btn btn-primary" %>
+            <%= link_to "Report", "", class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <% unless @unknow_ingredients.nil? %>
+    <% @unknow_ingredients.each do |ingredient| %>
+      <% translation = DeepL.translate ingredient, "JA", "EN" %>
+      <div class="wide-bar-card gray-background" data-controller="extended-infos">
+        <div class="toggle-grid">
+          <p class="text-wrap"><strong><%= translation %></strong> (<%= ingredient %>) was not found</p>
+          <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
+        </div>
+        <div class="d-none extended-infos" data-extended-infos-target="info">
+          <p>Sorry, we couldn't find that</p>
+          <p><strong>Here is what we think it is:</strong> <%= Gpt.describe_unknown_ingredient(translation) %></p>
+          <div class="extended-infos-grid">
+            <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient}", target: '_blank', class: "btn btn-primary" %>
+            <%= link_to "Report", "", class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
