@@ -11,11 +11,11 @@ class FoodsController < ApplicationController
     @food = Food.find(params[:id])
     @ingredient_list = @food.ingredient_list.split(", ")
     @pref_arr = current_user.preferences.split(" ")
-    classify_ingredients_individually
     @pref_flags
     pref_flags
     @ingredients
     @unknown_ingredients
+    get_ingredients
   end
 
   def new
@@ -52,6 +52,19 @@ class FoodsController < ApplicationController
 
   def food_params
     params.require(:food).permit(:name, :ingredient_list, :vegetarian, :pescetarian, :dairy_free, :peanut_free, :vegan, photos: [])
+  end
+
+  def get_ingredients
+    @ingredients = []
+    @unknown_ingredients = []
+    @ingredient_list.each do |ingredient|
+      ing = Ingredient.find_by(name: ingredient.strip)
+      if !ing.nil?
+        @ingredients << ing
+      else
+        @unknown_ingredients << ing
+      end
+    end
   end
 
   def classify_ingredients_individually
