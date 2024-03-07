@@ -18,11 +18,13 @@
       <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, data: {action: "input->autosubmit#submitForm"}, class: "image-form" } %>
     <% end %>
   </div>
-  <div class="scan-btn-container-rotate justify-content-center position-relative d-none" data-autosubmit-target="show">
+  <div class="scan-btn-container d-none" data-autosubmit-target="show">
     <%= image_tag("logo_without_plus.png", class: 'scan-btn-rotate') %>
     <%= image_tag("plus.png", class:'scan-btn-plus-rotate rotate') %>
   </div>
-  <div id="loading-text" class="d-none" data-autosubmit-target="show"></div>
+  <div class="d-flex justify-content-center">
+    <p class="d-none" data-autosubmit-target="show2"><span data-controller="typed"></span></p>
+  </div>
   <div id="scan-text">
     <span>SCAN</span>
   </div>

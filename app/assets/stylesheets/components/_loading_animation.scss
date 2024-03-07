@@ -16,13 +16,13 @@
 }
 
 #loading-text {
-  font-size: 22px;
   font-weight: bold;
   color: #333;
-  left: 50.7%;
   transition: color 0.5s ease-in-out;
   transform: translate(-50%, -50%);
-  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 24px;
 }
 
 @keyframes loadingTextAnimation {

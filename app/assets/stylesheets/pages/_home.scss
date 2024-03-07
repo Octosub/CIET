@@ -1,11 +1,12 @@
 // Specific CSS for your home-page
 
 .landing-page-container {
-  height: 82vh;
-  position: absolute;
   display: flex;
   flex-direction: column;
-  width: 100vw;
+}
+
+.landing-page-container > h2 {
+  margin-top: 10px;
 }
 
 #logo {
@@ -31,12 +32,12 @@
 
 #logo_3 {
   animation: fade-in 500ms ease-in 1000ms forwards;
-  top: 50%;
-  left: 50%;
-  transform: translate(-49%, -57%);
   opacity: 0;
+  height: 50px;
+  width: 50px;
   position: absolute;
-  width: 300px;
+  bottom: 49%;
+  left: 44%;
 }
 
 @keyframes fade-out {
@@ -83,10 +84,6 @@
   display: none;
 }
 
-#loading-text {
-  font-size: 24px;
-}
-
 #scan-text {
   font-size: 26px;
   font-weight: bold;
@@ -94,7 +91,6 @@
   transform: translate(-50%, -50%);
   opacity: 0;
   animation: cascadeText 0.8s ease-in 1.2s forwards;
-  width: 200px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
