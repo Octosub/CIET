@@ -87,7 +87,7 @@ class FoodsController < ApplicationController
     @preferences = [[], [], [], []]
     @ingredients = []
     @unknown_ingredients = []
-    Gpt::All_PREFERENCES.each do |preference|
+    Gpt::ALL_PREFERENCES.each do |preference|
       @ingredient_list.each do |ingredient|
         ing = Ingredient.find_by(name: ingredient.strip)
         if !ing.nil?
@@ -114,7 +114,7 @@ class FoodsController < ApplicationController
   end
 
   def classify_categories
-    Gpt::All_PREFERENCES.each do |preference|
+    Gpt::ALL_PREFERENCES.each do |preference|
       if (!@preferences[1].nil?)
         @preferences[1].each do |ingredient|
           if (ingredient.check(preference) == "false")
