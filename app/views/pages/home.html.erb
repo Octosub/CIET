@@ -1,9 +1,14 @@
-<% unless current_user.nil? %>
-  <% prefs_array = current_user.preferences.split(" ") %>
-  <% prefs_string = prefs_array[0...-1].join(", ") + " and " + prefs_array[-1] if prefs_array.length >= 2%>
-  <% prefs_string = prefs_array[0] if prefs_array.length == 1 %>
-  <h2>Checks for a <%= prefs_string %> diet</h2>
-<% end %>
+  <% unless current_user.nil? %>
+    <% prefs_array = current_user.preferences.split(" ") %>
+    <%# prefs_string = prefs_array[0...-1].join(", ") + " and " + prefs_array[-1] if prefs_array.length >= 2%>
+    <%# prefs_string = prefs_array[0] if prefs_array.length == 1 %>
+    <h2>Can I Eat This?</h2>
+<div class="icons-container">
+    <% prefs_array.each do |pref| %>
+      <%= image_tag("food_icons/#{pref}-gray.png").html_safe %>
+    <% end %>
+</div>
+  <% end %>
 <div class="landing-page-container" data-controller="autosubmit" >
   <div class="scan-btn-container" data-autosubmit-target="hide">
     <%= image_tag("ciet_logo.png", class: 'scan-btn', id: 'logo') %>
