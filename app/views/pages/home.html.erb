@@ -1,7 +1,5 @@
   <% unless current_user.nil? %>
     <% prefs_array = current_user.preferences.split(" ") %>
-    <%# prefs_string = prefs_array[0...-1].join(", ") + " and " + prefs_array[-1] if prefs_array.length >= 2%>
-    <%# prefs_string = prefs_array[0] if prefs_array.length == 1 %>
     <h2>Can I Eat This?</h2>
 <div class="icons-container">
     <% prefs_array.each do |pref| %>
