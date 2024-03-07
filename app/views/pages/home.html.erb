@@ -1,15 +1,15 @@
+<div class="landing-page-container" data-controller="autosubmit" >
   <% unless current_user.nil? %>
     <% prefs_array = current_user.preferences.split(" ") %>
     <%# prefs_string = prefs_array[0...-1].join(", ") + " and " + prefs_array[-1] if prefs_array.length >= 2%>
     <%# prefs_string = prefs_array[0] if prefs_array.length == 1 %>
     <h2>Can I Eat This?</h2>
-<div class="icons-container">
-    <% prefs_array.each do |pref| %>
-      <%= image_tag("food_icons/#{pref}-gray.png").html_safe %>
-    <% end %>
-</div>
+    <div class="icons-container">
+        <% prefs_array.each do |pref| %>
+          <%= image_tag("food_icons/#{pref}-gray.png").html_safe %>
+        <% end %>
+    </div>
   <% end %>
-<div class="landing-page-container" data-controller="autosubmit" >
   <div class="scan-btn-container" data-autosubmit-target="hide">
     <%= image_tag("ciet_logo.png", class: 'scan-btn', id: 'logo') %>
     <%= image_tag("logo_without_plus.png", class: '', id: 'logo_2')%>
@@ -17,13 +17,13 @@
     <%= simple_form_for @food, method: "post", data: {'autosubmit-target': "form"} do |f| %>
       <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, data: {action: "input->autosubmit#submitForm"}, class: "image-form" } %>
     <% end %>
-    <div id="scan-text">
-      <span>S</span><span>C</span><span>A</span><span>N</span>
-    </div>
   </div>
   <div class="scan-btn-container-rotate justify-content-center position-relative d-none" data-autosubmit-target="show">
     <%= image_tag("logo_without_plus.png", class: 'scan-btn-rotate') %>
     <%= image_tag("plus.png", class:'scan-btn-plus-rotate rotate') %>
-    <div id="loading-text"></div>
+  </div>
+  <div id="loading-text" class="d-none" data-autosubmit-target="show"></div>
+  <div id="scan-text">
+    <span>SCAN</span>
   </div>
 </div>
