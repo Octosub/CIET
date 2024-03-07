@@ -15,4 +15,12 @@ class Ingredient < ApplicationRecord
       return self.peanut_free
     end
   end
+
+  def full_check(preferences)
+    arr = []
+    preferences.each do |preference|
+      arr << self.check(preference)
+    end
+    return arr.uniq
+  end
 end
