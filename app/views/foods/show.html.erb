@@ -44,81 +44,74 @@
     </div>
   </div>
 <% end %>
-
-<% if @pref_flags.include?("false") %>
+<% unless @false_ingredients.length == 0 %>
   <div class="bar-container ingredient-show-container">
     <h2>Not Safe</h2>
-    <% @ingredients.each do |ingredient| %>
-      <% if ingredient.full_check(@pref_arr).include?("false") %>
-        <div class="wide-bar-card" data-controller="extended-infos" data-extended-infos-target="shover">
-          <div class="toggle-grid" data-extended-infos-target="shrinker">
-            <p class="text-wrap d-none" data-extended-infos-target="showup"><strong><%= ingredient.english_name.capitalize %></strong></p>
-            <% if ingredient.english_name.length > 9 %>
-              <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize[0..8] %>...</strong></p>
-            <% else %>
-              <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize %></strong></p>
+    <% @false_ingredients.each do |ingredient| %>
+      <div class="wide-bar-card" data-controller="extended-infos" data-extended-infos-target="shover">
+        <div class="toggle-grid" data-extended-infos-target="shrinker">
+          <p class="text-wrap d-none" data-extended-infos-target="showup"><strong><%= ingredient.english_name.capitalize %></strong></p>
+          <% if ingredient.english_name.length > 9 %>
+            <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize[0..8] %>...</strong></p>
+          <% else %>
+            <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize %></strong></p>
+          <% end %>
+          <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
+        </div>
+        <div class="ingredient-preference-results">
+          <% @pref_arr.each do |preference| %>
+            <% if (ingredient.check(preference) == "false") %>
+              <%= image_tag("food_icons/not-#{preference}.png", class: "small-icon") %>
             <% end %>
-            <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
-          </div>
-          <div class="ingredient-preference-results">
-            <% @pref_arr.each do |preference| %>
-              <% if (ingredient.check(preference) == "false") %>
-                <%= image_tag("food_icons/not-#{preference}.png", class: "small-icon") %>
-              <% end %>
-            <% end %>
-          </div>
-          <div class="d-none extended-infos" data-extended-infos-target="info">
-            <p><strong>Description: </strong><%= ingredient.english_description %></p>
-            <div class="extended-infos-grid">
-              <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient.english_name}", target: '_blank', class: "btn btn-primary" %>
-              <%= link_to "Report", "", class: "btn btn-primary" %>
-            </div>
+          <% end %>
+        </div>
+        <div class="d-none extended-infos" data-extended-infos-target="info">
+          <p><strong>Description: </strong><%= ingredient.english_description %></p>
+          <div class="extended-infos-grid">
+            <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient.english_name}", target: '_blank', class: "btn btn-primary" %>
+            <%= link_to "Report", "", class: "btn btn-primary" %>
           </div>
         </div>
-      <% end %>
+      </div>
     <% end %>
   </div>
 <% end %>
-
-<% if @pref_flags.include?("can-be") %>
+<% unless @maybe_ingredients.length == 0 %>
   <div class="bar-container ingredient-show-container">
     <h2>Caution</h2>
-    <% @ingredients.each do |ingredient| %>
-      <% if  (ingredient.full_check(@pref_arr).include?("can-be"))%>
-          <div class="wide-bar-card" data-controller="extended-infos" data-extended-infos-target="shover">
-            <div class="toggle-grid" data-extended-infos-target="shrinker">
-              <p class="text-wrap d-none" data-extended-infos-target="showup"><strong><%= ingredient.english_name.capitalize %></strong></p>
-              <% if ingredient.english_name.length > 9 %>
-                <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize[0..8] %>...</strong></p>
-              <% else %>
-                <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize %></strong></p>
-              <% end %>
-              <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
-            </div>
-            <div class="ingredient-preference-results">
-              <% @pref_arr.each do |preference| %>
-                <% if (ingredient.check(preference) == "can-be") %>
-                  <%= image_tag("food_icons/maybe-#{preference}.png", class: "small-icon") %>
-                <% end %>
-              <% end %>
-            </div>
-            <div class="d-none extended-infos" data-extended-infos-target="info">
-              <p><strong>Description: </strong><%= ingredient.english_description %></p>
-              <div class="extended-infos-grid">
-                <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient.english_name}", target: '_blank', class: "btn btn-primary" %>
-                <%= link_to "Report", "", class: "btn btn-primary" %>
-              </div>
-            </div>
+    <% @maybe_ingredients.each do |ingredient| %>
+      <div class="wide-bar-card" data-controller="extended-infos" data-extended-infos-target="shover">
+        <div class="toggle-grid" data-extended-infos-target="shrinker">
+          <p class="text-wrap d-none" data-extended-infos-target="showup"><strong><%= ingredient.english_name.capitalize %></strong></p>
+          <% if ingredient.english_name.length > 9 %>
+            <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize[0..8] %>...</strong></p>
+          <% else %>
+            <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize %></strong></p>
+          <% end %>
+          <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
+        </div>
+        <div class="ingredient-preference-results">
+          <% @pref_arr.each do |preference| %>
+            <% if (ingredient.check(preference) == "can-be") %>
+              <%= image_tag("food_icons/maybe-#{preference}.png", class: "small-icon") %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="d-none extended-infos" data-extended-infos-target="info">
+          <p><strong>Description: </strong><%= ingredient.english_description %></p>
+          <div class="extended-infos-grid">
+            <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient.english_name}", target: '_blank', class: "btn btn-primary" %>
+            <%= link_to "Report", "", class: "btn btn-primary" %>
           </div>
-      <% end %>
+        </div>
+      </div>
     <% end %>
   </div>
 <% end %>
-
-<% if !@unknow_ingredients.nil? %>
+<% unless @unknown_ingredients.length == 0 %>
   <div class="bar-container">
     <h2>Unknown</h2>
-    <% @unknow_ingredients.each do |ingredient| %>
+    <% @unknown_ingredients.each do |ingredient| %>
       <% translation = DeepL.translate ingredient, "JA", "EN" %>
       <div class="wide-bar-card gray-background" data-controller="extended-infos">
         <div class="toggle-grid">
@@ -137,40 +130,38 @@
     <% end %>
   </div>
 <% end %>
-
-<div class="bar-container ingredient-show-container">
-  <h2>Safe</h2>
-  <% @ingredients.each do |ingredient| %>
-    <% if  (ingredient.full_check(@pref_arr).include?("true"))%>
-        <div class="wide-bar-card" data-controller="extended-infos" data-extended-infos-target="shover">
-          <div class="toggle-grid" data-extended-infos-target="shrinker">
-            <p class="text-wrap d-none" data-extended-infos-target="showup"><strong><%= ingredient.english_name.capitalize %></strong></p>
-            <% if ingredient.english_name.length > 9 %>
-              <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize[0..8] %>...</strong></p>
-            <% else %>
-              <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize %></strong></p>
+<% unless @true_ingredients.length == 0 %>
+  <div class="bar-container ingredient-show-container">
+    <h2>Safe</h2>
+    <% @true_ingredients.each do |ingredient| %>
+      <div class="wide-bar-card" data-controller="extended-infos" data-extended-infos-target="shover">
+        <div class="toggle-grid" data-extended-infos-target="shrinker">
+          <p class="text-wrap d-none" data-extended-infos-target="showup"><strong><%= ingredient.english_name.capitalize %></strong></p>
+          <% if ingredient.english_name.length > 9 %>
+            <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize[0..8] %>...</strong></p>
+          <% else %>
+            <p class="text-wrap" data-extended-infos-target="hider"><strong><%= ingredient.english_name.capitalize %></strong></p>
+          <% end %>
+          <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
+        </div>
+        <div class="ingredient-preference-results">
+          <% @pref_arr.each do |preference| %>
+            <% if (ingredient.check(preference) == "true") %>
+              <%= image_tag("food_icons/#{preference}.png", class: "small-icon") %>
             <% end %>
-            <button class="btn toggler"  data-action="click->extended-infos#revealInfos">&gt;</button>
-          </div>
-          <div class="ingredient-preference-results">
-            <% @pref_arr.each do |preference| %>
-              <% if (ingredient.check(preference) == "true") %>
-                <%= image_tag("food_icons/#{preference}.png", class: "small-icon") %>
-              <% end %>
-            <% end %>
-          </div>
-          <div class="d-none extended-infos" data-extended-infos-target="info">
-            <p><strong>Description: </strong><%= ingredient.english_description %></p>
-            <div class="extended-infos-grid">
-              <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient.english_name}", target: '_blank', class: "btn btn-primary" %>
-              <%= link_to "Report", "", class: "btn btn-primary" %>
-            </div>
+          <% end %>
+        </div>
+        <div class="d-none extended-infos" data-extended-infos-target="info">
+          <p><strong>Description: </strong><%= ingredient.english_description %></p>
+          <div class="extended-infos-grid">
+            <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient.english_name}", target: '_blank', class: "btn btn-primary" %>
+            <%= link_to "Report", "", class: "btn btn-primary" %>
           </div>
         </div>
+      </div>
     <% end %>
-  <% end %>
-</div>
-
+  </div>
+<% end %>
 <div class="pictures-container" data-controller="phototoggler">
   <% if @food.photos[1].present? %>
     <% if @pref_flags.include?("false") %>
@@ -201,7 +192,6 @@
     <% end %>
   <% end %>
 </div>
-
 <div id="food-name-container">
   <% if @food.name.present? %>
     <h1 id="food-display-name"><%= @food.name %></h1>
