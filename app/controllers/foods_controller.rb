@@ -9,7 +9,8 @@ class FoodsController < ApplicationController
 
   def show
     @food = Food.find(params[:id])
-    @pref_arr = current_user.preferences.split(", ")
+    @ingredient_list = @food.ingredient_list.split(", ")
+    @pref_arr = current_user.preferences.split(" ")
     classify_ingredients_individually
     classify_categories
     @pref_flags = pref_flags
@@ -26,9 +27,6 @@ class FoodsController < ApplicationController
     @food.user = current_user
     if @food.save
       @food.extract_ingredients
-      @food.vegan_boolean
-      @food.save
-      puts "save successfull!"
       redirect_to food_path(@food)
     else
       flash[:error] = @food.errors.full_messages.join(", ")
@@ -59,7 +57,7 @@ class FoodsController < ApplicationController
     @ingredients = []
     @unknown_ingredients = []
     @pref_arr.each do |preference|
-      @food.ingredient_list.split(", ").each do |ingredient|
+      @ingredient_list.each do |ingredient|
         ing = Ingredient.find_by(name: ingredient.strip)
         if !ing.nil?
           @ingredients << ing

@@ -9,4 +9,6 @@ class User < ApplicationRecord
 
   has_one_attached :photo
   has_many :foods
+
+  validates :preferences, presence: true
 end
