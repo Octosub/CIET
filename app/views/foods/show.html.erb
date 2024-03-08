@@ -45,7 +45,7 @@
   </div>
 <% end %>
 <% unless @false_ingredients.length == 0 %>
-  <div class="bar-container ingredient-show-container">
+  <div class="bar-container ingredient-show-container false-background">
     <h2>Not Safe</h2>
     <% @false_ingredients.each do |ingredient| %>
       <div class="wide-bar-card" data-controller="extended-infos" data-extended-infos-target="shover">
@@ -77,7 +77,7 @@
   </div>
 <% end %>
 <% unless @maybe_ingredients.length == 0 %>
-  <div class="bar-container ingredient-show-container">
+  <div class="bar-container ingredient-show-container maybe-background">
     <h2>Caution</h2>
     <% @maybe_ingredients.each do |ingredient| %>
       <div class="wide-bar-card" data-controller="extended-infos" data-extended-infos-target="shover">
@@ -109,7 +109,7 @@
   </div>
 <% end %>
 <% unless @unknown_ingredients.length == 0 %>
-  <div class="bar-container ingredient-show-container">
+  <div class="bar-container ingredient-show-container unknown-background">
     <h2>Unknown</h2>
     <% @unknown_ingredients.each do |ingredient| %>
       <% translation = DeepL.translate ingredient, "JA", "EN" %>
@@ -136,7 +136,7 @@
   </div>
 <% end %>
 <% unless @true_ingredients.length == 0 %>
-  <div class="bar-container ingredient-show-container">
+  <div class="bar-container ingredient-show-container true-background">
     <h2>Safe</h2>
     <% @true_ingredients.each do |ingredient| %>
       <div class="wide-bar-card" data-controller="extended-infos" data-extended-infos-target="shover">
