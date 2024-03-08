@@ -13,7 +13,7 @@
       <% end %>
     </div>
   </div>
-<% elsif (@pref_flags.include?("can-be") || !@unknown_ingredients.nil?) %>
+<% elsif (@pref_flags.include?("can-be") || @unknown_ingredients.count > 0) %>
   <div class="show-result-container d-flex flex-column yellow-border-image">
     <h1>Maybe you can eat this!</h1>
     <div class="d-flex flex-row">
