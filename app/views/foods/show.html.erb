@@ -125,7 +125,7 @@
         </div>
         <div class="d-none extended-infos" data-extended-infos-target="info">
           <p>Sorry, we couldn't find <%= ingredient %></p>
-          <p><strong>Here is what we think it is:</strong> <%= Gpt.describe_unknown_ingredient(translation) %></p>
+          <p><strong>Here is what we think it is:</strong> <%= Gpt.describe_unknown_ingredient(translation.text) %></p>
           <div class="extended-infos-grid">
             <%= link_to "Google it!", "http://www.google.com/search?q=#{ingredient}", target: '_blank', class: "btn btn-primary" %>
             <%= link_to "Report", "", class: "btn btn-primary" %>
