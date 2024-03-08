@@ -2,17 +2,18 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  padding-top: 10px;
+  // padding-top: 10px;
   background-color: $dark-gray;
   border-radius: 20px;
-  padding-bottom: 30px;
+  // padding-bottom: 30px;
   width: 95%;
   margin-left: auto;
   margin-right: auto;
+  padding: 5px 5px 5px 5px;
 }
 
 .bar-container h2 {
-  color: $white;
+  color: $dark-gray;
   grid-column: span 2;
 }
 
@@ -26,7 +27,7 @@
 
 .wide-bar-card {
   border-radius: 10px;
-  width: 95%;
+  width: 100%;
   min-height: 120px;
   padding: 5px;
   overflow: hidden;
