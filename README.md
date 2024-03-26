@@ -1,6 +1,7 @@
 # 📚 CIET - Can I Eat This?
 
-Project description goes here
+Ciet is an app for international tourists in Japan who have dietary preferences, such as being vegan, vegetarian, pescetarian, peanut-free etc..
+Users can use this app to scan the ingredients list on food packaging with their smartphone camera to get a full list of all ingredients and the app tells them whether its compatible with their diet.
 
 ![image](https://github.com/Octosub/CIET/assets/135783511/8a7dba67-7482-451d-91a2-9b26dbea4fdd)
 ![image](https://github.com/Octosub/CIET/assets/135783511/83e1f353-a535-40d0-9342-2e6882e6f09a)
