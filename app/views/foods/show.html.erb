@@ -180,7 +180,7 @@
       <%= cl_image_tag @food.photos[0].key, height: 300, width: 400, crop: :fill, data: {"phototoggler-target": "back", action: "click->phototoggler#togglePhoto"}, class: "big-centered-image green-border-image d-none" %>
     <% end %>
   <% else %>
-    <%= simple_form_for @food, method: "patch", input_html: { id: "second-pic"}, data: { controller: "autosubmit", 'autosubmit-target': "form"} do |f| %>
+    <%= simple_form_for @food, method: "patch", data: { controller: "autosubmit", 'autosubmit-target': "form"}, input_html: { class: "second-pic-form" } do |f| %>
       <div class="plus-icon-invisible">
         <div>
           <%= image_tag "icon_plus.png" %> Add Front Photo
