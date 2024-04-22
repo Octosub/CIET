@@ -11,7 +11,7 @@ gem 'httparty'
 gem "google-cloud-translate-v2"
 gem 'deepl-rb', require: 'deepl'
 gem "rails_admin", "3.0"
-
+gem "openai"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.2"
